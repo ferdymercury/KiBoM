@@ -2,7 +2,7 @@ class ColumnList:
 
     #default columns (immutable)
     COL_REFERENCE = 'References'
-    COL_DESCRIPTION = 'Description'
+    COL_DESCRIPTION = 'Schematic Description'
     COL_VALUE = 'Value'
     COL_FP = 'Footprint'
     COL_FP_LIB = 'Footprint Lib'
@@ -11,7 +11,7 @@ class ColumnList:
     COL_DATASHEET = 'Datasheet'
 
     #default columns for groups
-    COL_GRP_QUANTITY = 'Quantity Per PCB'
+    COL_GRP_QUANTITY = 'Quantity'
     COL_GRP_TOTAL_COST = 'Total Cost' #Total cost based on quantity
     COL_GRP_BUILD_QUANTITY = 'Build Quantity'
 

@@ -107,7 +107,7 @@ In addition to the default KiCad fields which are assigned to each component, Ki
 **Default Fields**
 
 The following default fields are extracted and can be added to the output BoM file:
-* `Description` : Part description as per the schematic symbol
+* `Schematic Description` : Part description as per the schematic symbol
 * `References` : List of part references included in a particular group
 * `Quantity` : Number of components included in a particular group
 * `Part` : Part name as per the schematic symbol

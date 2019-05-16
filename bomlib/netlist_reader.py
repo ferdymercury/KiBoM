@@ -23,6 +23,7 @@ import pdb
 
 from bomlib.component import (Component, ComponentGroup)
 from bomlib.sort import natural_sort
+from bomlib.units import componentValue
 
 from bomlib.preferences import BomPref
 
@@ -425,9 +426,32 @@ class netlist():
             g.sortComponents()
             g.updateFields(self.prefs.useAlt, self.prefs.altWrap)
 
-        #sort the groups
-        #first priority is the Type of component (e.g. R?, U?, L?)
-        groups = sorted(groups, key=lambda g: [g.components[0].getPrefix(), g.components[0].getValue()])
+        # Sort by Reference Designator
+        # sorts for human readable (i.e. C1, C2, C11, C19...)
+        def sort1(component):
+            return natural_sort(component.getRef())
+
+        # Value sorted Reference Designator Prefix values
+        SortPrefix = ['r', 'l', 'c']
+        # Sort by Reference Designator unless prefix is R, C, or L
+        # sorts Reference Designator for human readable (i.e. C1, C2, C11, C19...)
+        def sort2(component):
+            if component.getPrefix().lower() in SortPrefix:
+                # Sort by Prefix then by Value
+                result = [component.getPrefix(), componentValue(component.getValue())]
+                print('sort="{}"'.format(result))
+                return result
+            else:
+                # Sort by Reference Designator only
+                result = natural_sort(component.getRef())
+                print('sort={}'.format(result))
+                return result
+
+        # sort the groups
+        #  sort1 sorts by reference designator
+        #  sort2 sorts by reference designator unless part type is R or L or C 
+        #        then to sorts by prefix and true value
+        groups = sorted(groups, key=lambda g: sort1(g.components[0]))
 
         return groups
 

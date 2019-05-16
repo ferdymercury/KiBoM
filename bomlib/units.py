@@ -108,8 +108,8 @@ def compMatch(component):
     except:
         return None
 
-    val = "{0:.15f}".format(val * 1.0 * getPrefix(prefix))
-
+    #val = "{0:025.15f}".format(val * 1.0 * getPrefix(prefix))
+    val = val * getPrefix(prefix)
     return (val, getUnit(units))
 
 def componentValue(valString):
