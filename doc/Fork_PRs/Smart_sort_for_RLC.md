@@ -3,6 +3,7 @@
 - **Pull-request**: [#82](https://github.com/SchrodingersGat/KiBoM/pull/82)
 - **Opened**: 2020-03-11
 - **Status**: Open
+- **Branch**: better_sort
 
 ## Description
 

@@ -3,6 +3,7 @@
 - **Pull-request**: [#106](https://github.com/SchrodingersGat/KiBoM/pull/106)
 - **Opened**: 2020-07-15
 - **Status**: Open
+- **Branch**: fix_variants
 
 ## Description
 

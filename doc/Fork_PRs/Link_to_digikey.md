@@ -3,6 +3,7 @@
 - **Pull-request**: [#80](https://github.com/SchrodingersGat/KiBoM/pull/80)
 - **Opened**: 2020-03-11
 - **Status**: Open
+- **Branch**: digikey_link
 
 ## Description
 

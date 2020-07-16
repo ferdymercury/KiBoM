@@ -3,6 +3,7 @@
 - **Pull-request**: [#86](https://github.com/SchrodingersGat/KiBoM/pull/86)
 - **Opened**: 2020-03-12
 - **Status**: Closed by [#90](https://github.com/SchrodingersGat/KiBoM/pull/90) (2020-03-12). Same patch but adapted to support Windows details.
+- **Branch**: no_path_in_source_file
 
 ## Description
 

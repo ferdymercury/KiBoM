@@ -3,6 +3,7 @@
 - **Pull-request**: [#81](https://github.com/SchrodingersGat/KiBoM/pull/81)
 - **Opened**: 2020-03-11
 - **Status**: Open
+- **Branch**: join_fields
 
 ## Description
 

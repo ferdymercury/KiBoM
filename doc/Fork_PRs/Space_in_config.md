@@ -3,6 +3,7 @@
 - **Pull-request**: [#83](https://github.com/SchrodingersGat/KiBoM/pull/83)
 - **Opened**: 2020-03-11
 - **Status**: Merged (2020-03-12)
+- **Branch**: space_in_config
 
 ## Description
 

@@ -3,6 +3,7 @@
 - **Pull-request**: [#85](https://github.com/SchrodingersGat/KiBoM/pull/85)
 - **Opened**: 2020-03-11
 - **Status**: Merged (2020-03-12)
+- **Branch**: generate_dnf
 
 ## Description
 

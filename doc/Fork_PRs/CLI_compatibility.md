@@ -3,6 +3,7 @@
 - **Pull-request**: [#104](https://github.com/SchrodingersGat/KiBoM/pull/104)
 - **Opened**: 2020-07-15
 - **Status**: Open
+- **Branch**: recover_cli_script
 
 ## Description
 

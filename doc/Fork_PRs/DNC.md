@@ -5,6 +5,7 @@
 - **Status**:
   - Closed by [#91](https://github.com/SchrodingersGat/KiBoM/pull/91) (2020-03-12). Same idea, but better implementation by upstream.
   - Fixed by [Fix DNC (isFixed) #105](https://github.com/SchrodingersGat/KiBoM/pull/105) (2020-07-15)
+- **Branch**: dnc_support, fix_dnc
 
 ## Description
 
