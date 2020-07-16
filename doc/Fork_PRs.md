@@ -12,6 +12,10 @@ This document explains the additions to the original KiBoM code.
 - [Links to Digi-Key in a configurable column](Fork_PRs/Link_to_digikey.md)
 - [Command line compatibility with older versions](Fork_PRs/CLI_compatibility.md)
 
+### Small additions
+
+- [Add support for spaces between a value an its unit](Fork_PRs/Space_before_unit.md)
+
 ### Small fixes
 
 - [+VARIANT mechanism not working as expected](Fork_PRs/Variant_plus.md)
