@@ -108,7 +108,7 @@ class xmlElement():
 
         return ""
 
-    # Is it complete? assumes the target is an user defined field
+    # Is it complete? assumes the target is an user defined field (#79)
     def setField(self, elemName, value):
         """Sets the text of elemName field
         """
@@ -119,7 +119,7 @@ class xmlElement():
                         tg.setChars(value)
         return ""
 
-    # Is it complete? Assumes the destination is a KiCad base field
+    # Is it complete? Assumes the destination is a KiCad base field (#81)
     def append(self, elemName, value):
         """Appends text to the indicated elemName
         """
@@ -299,10 +299,6 @@ class netlist():
             return self.design.get("date").encode('ascii', 'ignore')
 
     def getSource(self):
-
-        path = self.design.get("source").replace("\\", "/")
-        path = os.path.basename(path)
-
         """Return the source string for the design"""
 
         path = self.design.get("source").replace("\\", "/")
@@ -349,7 +345,7 @@ class netlist():
 
         return ret
 
-    # Hack to avoid an extra column for the datasheet
+    # Hack to avoid an extra column for the datasheet (#79)
     def datasheetLink(self, components):
         if not self.prefs.as_link:
             return ""
@@ -359,7 +355,7 @@ class netlist():
                 c.element.setField(self.prefs.as_link, ' <a href="' + ret + '">' + c.getField(self.prefs.as_link) + '</a>')
         return ""
 
-    # Post-process the digikey P/N to be an URL
+    # Post-process the digikey P/N to be an URL (#80)
     def digikeyLink(self, groups):
         if not self.prefs.digikey_link:
             return ""
@@ -374,7 +370,7 @@ class netlist():
 
         groups = []
 
-        # Join fields like voltage, current, power and tolerance with the value
+        # Join fields like voltage, current, power and tolerance with the value (#81)
         for join_l in self.prefs.join:
             elements = len(join_l)
             if elements > 1:
@@ -413,7 +409,7 @@ class netlist():
             g.updateFields(self.prefs.useAlt, self.prefs.altWrap)
 
         # Sort the groups
-        # First priority is the Type of component (e.g. R?, U?, L?)
+        # First priority is the Type of component (e.g. R?, U?, L?) (#82)
         groups = sorted(groups, key=lambda g: [g.components[0].getPrefix(), g.components[0].getValueSort()])
 
         return groups

@@ -201,7 +201,7 @@ class Component():
     def getValue(self):
         return self.element.get("value")
 
-    # Try to better sort R, L and C components
+    # Try to better sort R, L and C components (#82)
     def getValueSort(self):
         pref = self.getPrefix()
         v = self.getValue()
@@ -329,6 +329,7 @@ class Component():
     def getRef(self):
         return self.element.get("comp", "ref")
 
+    # Fix for +VARIANT (#106)
     def isFitted(self):
         """ Determine if a component is FITTED or not """
 
@@ -604,7 +605,7 @@ class ComponentGroup():
                 fld=fieldData).encode('utf-8'))
             self.fields[field] += " " + fieldData
 
-    # Like updateField, but bypassing conflicts test
+    # Like updateField, but bypassing conflicts test (#80)
     def forceField(self, field, fieldData):
 
         # Protected fields cannot be overwritten

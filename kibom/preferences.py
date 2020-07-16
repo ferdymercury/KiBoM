@@ -24,7 +24,7 @@ class BomPref:
     SECTION_GROUPING_FIELDS = "GROUP_FIELDS"
     SECTION_REGEXCLUDES = "REGEX_EXCLUDE"
     SECTION_REGINCLUDES = "REGEX_INCLUDE"
-    SECTION_JOIN = "JOIN"
+    SECTION_JOIN = "JOIN"  # (#81)
 
     OPT_PCB_CONFIG = "pcb_configuration"
     OPT_NUMBER_ROWS = "number_rows"
@@ -43,8 +43,8 @@ class BomPref:
     OPT_CONFIG_FIELD = "fit_field"
     OPT_HIDE_HEADERS = "hide_headers"
     OPT_HIDE_PCB_INFO = "hide_pcb_info"
-    OPT_DATASHEET_AS_LINK = "datasheet_as_link"
-    OPT_DIGIKEY_LINK = "digikey_link"
+    OPT_DATASHEET_AS_LINK = "datasheet_as_link"  # (#79)
+    OPT_DIGIKEY_LINK = "digikey_link"  # (#80)
 
     def __init__(self):
         # List of headings to ignore in BoM generation
@@ -66,12 +66,12 @@ class BomPref:
         self.mergeBlankFields = True  # Blanks fields will be merged when possible
         self.hideHeaders = False
         self.hidePcbInfo = False
-        self.digikey_link = False
+        self.digikey_link = False  # (#80)
         self.configField = "Config"  # Default field used for part fitting config
         self.pcbConfig = ["default"]
 
         self.backup = "%O.tmp"
-        self.as_link = False
+        self.as_link = False  # (#79)
 
         self.separatorCSV = None
         self.outputFileName = "%O_bom_%v%V"
@@ -110,7 +110,7 @@ class BomPref:
             ["d", "diode", "d_small"]
         ]
 
-        # Nothing to join by default
+        # Nothing to join by default (#81)
         self.join = []
 
     # Check an option within the SECTION_GENERAL group
@@ -165,6 +165,7 @@ class BomPref:
         else:
             self.backup = False
 
+        # (#79)
         if cf.has_option(self.SECTION_GENERAL, self.OPT_DATASHEET_AS_LINK):
             self.as_link = cf.get(self.SECTION_GENERAL, self.OPT_DATASHEET_AS_LINK)
         else:
@@ -176,6 +177,7 @@ class BomPref:
         if cf.has_option(self.SECTION_GENERAL, self.OPT_HIDE_PCB_INFO):
             self.hidePcbInfo = cf.get(self.SECTION_GENERAL, self.OPT_HIDE_PCB_INFO) == '1'
 
+        # (#80)
         if cf.has_option(self.SECTION_GENERAL, self.OPT_DIGIKEY_LINK):
             self.digikey_link = cf.get(self.SECTION_GENERAL, self.OPT_DIGIKEY_LINK)
         else:
@@ -197,7 +199,7 @@ class BomPref:
         if self.SECTION_ALIASES in cf.sections():
             self.aliases = [re.split('[ \t]+', a) for a in cf.options(self.SECTION_ALIASES)]
 
-        # Read out join rules
+        # Read out join rules (#81)
         if self.SECTION_JOIN in cf.sections():
             self.join = [a.split("\t") for a in cf.options(self.SECTION_JOIN)]
 
@@ -251,6 +253,7 @@ class BomPref:
         cf.set(self.SECTION_GENERAL, '; Make a backup of the bom before generating the new one, using the following template')
         cf.set(self.SECTION_GENERAL, self.OPT_BACKUP, self.backup)
 
+        # (#79)
         cf.set(self.SECTION_GENERAL, '; Put the datasheet as a link for the following field')
         cf.set(self.SECTION_GENERAL, self.OPT_DATASHEET_AS_LINK, self.as_link)
 
@@ -266,6 +269,7 @@ class BomPref:
         cf.set(self.SECTION_GENERAL, '; Whether to hide PCB info from output file')
         cf.set(self.SECTION_GENERAL, self.OPT_HIDE_PCB_INFO, self.hidePcbInfo)
 
+        # (#80)
         cf.set(self.SECTION_GENERAL, '; Interpret as a Digikey P/N and link the following field')
         cf.set(self.SECTION_GENERAL, self.OPT_DIGIKEY_LINK, self.digikey_link)
 
@@ -301,6 +305,7 @@ class BomPref:
         for a in self.aliases:
             cf.set(self.SECTION_ALIASES, "\t".join(a))
 
+        # (#81)
         cf.add_section(self.SECTION_JOIN)
         cf.set(self.SECTION_JOIN, "; A list of rules to join the content of fields")
         cf.set(self.SECTION_JOIN, "; Each line is a rule, the first name is the field that will receive the data")

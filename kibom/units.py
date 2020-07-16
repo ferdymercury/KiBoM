@@ -84,10 +84,12 @@ def groupString(group):  # Return a reg-ex string for a list of values
 
 
 def matchString():
+    # Allow spaces between value and unit (#108)
     return r"^([0-9\.]+)\s*(" + groupString(PREFIX_ALL) + ")*(" + groupString(UNIT_ALL) + r")*(\d*)$"
 
 
 def compMatch(component):
+    # Cosmetic (#108)
     """
     Return a normalized value and units for a given component value string
     e.g. compMatch('10R2') returns (10, R)

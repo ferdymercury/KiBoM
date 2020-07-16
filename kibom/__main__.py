@@ -34,6 +34,7 @@ from . import debug
 def writeVariant(input_file, output_dir, output_file, variant, preferences):
     
     if variant is not None:
+        # Fix +Variant (#106)
         preferences.pcbConfig = variant.strip().lower().split(',')
         
     debug.message("PCB variant:", ", ".join(preferences.pcbConfig))
@@ -50,7 +51,7 @@ def writeVariant(input_file, output_dir, output_file, variant, preferences):
     # Extract the components
     components = net.getInterestingComponents()
 
-    # Datasheet as link
+    # Datasheet as link (#79)
     ext = output_file.split('.')[-1].lower()
     if ext in ["htm", "html"]:
         net.datasheetLink(components)
@@ -101,7 +102,7 @@ def writeVariant(input_file, output_dir, output_file, variant, preferences):
 
     debug.message("Saving BOM File:", output_file)
 
-    # Digikey P/N as URL
+    # Digikey P/N as URL (#80)
     if ext in ["htm", "html"]:
         net.digikeyLink(groups)
 
@@ -109,6 +110,7 @@ def writeVariant(input_file, output_dir, output_file, variant, preferences):
 
 
 def main():
+    # KiBOM_CLI.py (#104)
     prog = 'KiBOM_CLI.py'
     if __name__ == '__main__':
         prog = "python -m kibom"
