@@ -49,3 +49,4 @@ This document explains the additions to the original KiBoM code.
   - Basic test for generated XLSX
   - Basic test for variants
   - Basic test for DNC
+  - Test for component sorting (by value)

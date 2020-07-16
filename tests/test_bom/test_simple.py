@@ -11,6 +11,11 @@ Simple tests
   - Subdir relative to netlist
   - Unrelated dir (most test are this case)
   - Unrelated deep subdir
+- Variants
+  - Matrix in kibom-variante
+  - V1+V3 from kibom-variante
+- Components units
+  - Sort and groups of RLC_sort
 
 For debug information use:
 pytest-3 --log-cli-level debug
@@ -30,23 +35,28 @@ from utils import context  # noqa: E402
 
 BOM_DIR = 'BoM'
 KIBOM_TEST_COMPONENTS = ['C1', 'C2', 'C3', 'C4', 'R1', 'R2', 'R3', 'R4', 'R5', 'R7', 'R8', 'R9', 'R10']
+EXCLUDE_TEST = ['R6']
 
 
-def check_kibom_test_netlist(rows, components, groups=5):
+def check_kibom_test_netlist(rows, components, exclude=EXCLUDE_TEST, groups=5, comps=KIBOM_TEST_COMPONENTS):
     """ Checks the kibom-test.xml expected results """
-    # 5/6 groups
+    # Groups
     assert len(rows) == groups
     logging.debug(str(groups) + " groups OK")
-    # 13 components
-    assert len(components) == 13
-    logging.debug("13 components OK")
-    # R6 excluded
-    assert 'R6' not in components
-    logging.debug("R6 not fitted OK")
+    # Components
+    if comps:
+        assert len(components) == len(comps)
+        logging.debug(str(len(comps)) + " components OK")
+    # Excluded
+    if exclude:
+        for ex in exclude:
+            assert ex not in components
+        logging.debug(str(len(exclude)) + " not fitted OK")
     # All the other components
-    for c in KIBOM_TEST_COMPONENTS:
-        assert c in components
-    logging.debug("list of components OK")
+    if comps:
+        for c in comps:
+            assert c in components
+        logging.debug("list of components OK")
 
 
 def check_dnc(rows, comp):
@@ -77,7 +87,7 @@ def test_bom_simple_html():
     ctx.run(no_config_file=True)
     out = prj + '_bom_A.' + ext
     rows, components, dnf = ctx.load_html(out)
-    check_kibom_test_netlist(rows, components, 6)
+    check_kibom_test_netlist(rows, components, groups=6)
     assert len(dnf) == 1
     assert 'R6' in dnf
     ctx.clean_up()
@@ -235,4 +245,18 @@ def test_variant_t1_5():
     assert 'R2' not in components
     assert 'R3' not in components
     assert 'R4' in components
+    ctx.clean_up()
+
+
+def test_sort_1():
+    prj = 'RLC_sort'
+    ext = 'csv'
+    ctx = context.TestContext('BoMSort1', prj, ext)
+    ctx.run(no_config_file=True)
+    out = prj + '_bom_A.' + ext
+    rows, components = ctx.load_csv(out)
+    check_kibom_test_netlist(rows, components, exclude=None, groups=13, comps=None)
+    exp = ['C5', 'C6', 'C7', 'C8', 'C9', 'C10', 'C1', 'C2', 'C3', 'C4', 'C11', 'C12',
+           'R4', 'R9', 'R10', 'R3', 'R2', 'R1', 'R8', 'R7']
+    assert components == exp
     ctx.clean_up()
