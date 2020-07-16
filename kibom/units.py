@@ -30,6 +30,9 @@ UNIT_L = ["henry", "h"]
 
 UNIT_ALL = UNIT_R + UNIT_C + UNIT_L
 
+# Compiled regex to match the values (#110)
+match = None
+
 
 def getUnit(unit):
     """
@@ -101,10 +104,13 @@ def compMatch(component):
     # Remove any commas (not lower: #109)
     component = component.strip().replace(",", "")
 
-    match = matchString()
+    # Get the compiled regex (#110)
+    global match
+    if not match:
+        match = re.compile(matchString(), flags=re.IGNORECASE)
 
-    # Not lower, but ignore case (#109)
-    result = re.search(match, component, flags=re.IGNORECASE)
+    # Not lower, but ignore case (#109+#110)
+    result = match.search(component)
 
     if not result:
         return None
