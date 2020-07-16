@@ -1,7 +1,7 @@
 # Modified the R/L/C sort to try to make sense of the multiplier
 
 - **Pull-request**: [#82](https://github.com/SchrodingersGat/KiBoM/pull/82)
-- **Opened**: 2020-03-11
+- **Opened**: 2020-03-11 (updated 2020-07-16)
 - **Status**: Open
 - **Branch**: better_sort
 
@@ -12,42 +12,27 @@ It helps to get 5 pF before 1 nF.
 The original search is alphabetic, making *1 nF* to be *smaler* than *5 pF*.
 This patch interprets *5 pF* as 5000 and *1 nF* as 1000000 (fempto Farad).
 
-Valid **C** units are: (base is fempto Farad)
+Valid prefixes:
 
-- **uF**: 1000000000
-- **nF**: 1000000
-- **pF**: 1000
+- **pico**, **p**: 1e-12
+- **nano**, **n**: 1e-9
+- **μ**, **u**, **micro**: 1e-6
+- **milli**, **m**: 1e-3
+- **kilo**, **k**: 1e3
+- **mega**, **meg**, **M**: 1e6
+- **giga**, **g**: 1e9
 
-Examples:
+All case insensitive, except 'M', see: [Use "M" for "mega" and "m" for "milli"](Fork_PRs/Mega_prefix.md)
 
-- 4 uF = 4000000000
-- 3.3 nF = 3300000
-- 2pf = 2000
+The prefix can be mixed with the value, instead of the decimal separator: "3R3", "4k7", "2p2", etc.
 
-Valid **L** units are: (base is fempto Henry)
+Valid units are:
 
-- **uH**: 1000000000
-- **nH**: 1000000
-- **pH**: 1000
+- **Resistor**: r, ohms, ohm, Ω
+- **Capacitor**: farad, f
+- **Inductor**: henry, h
 
-Examples:
-
-- 4 uH = 4000000000
-- 3.3 nH = 3300000
-- 2ph = 2000
-
-Valid **R** units are: (base is mili Ohm)
-
-- **M**: 1000000000
-- **K**: 1000000
-- **R**: 1000
-
-Examples:
-
-- 4.7 = 4700
-- 2k2 = 2200000
-- 3R3 = 3300
-- 10K = 10000000
+All case insensitive.
 
 ## How to use
 

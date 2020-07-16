@@ -204,48 +204,17 @@ class Component():
     # Try to better sort R, L and C components (#82)
     def getValueSort(self):
         pref = self.getPrefix()
-        v = self.getValue()
-        # Make the decimal separator uniform
-        v = v.replace(',', '.')
-        # Replace micro by u
-        v = v.replace("µ", "u")
-        # Capacitors and Inductors
-        if pref in "CL":
-            p = re.compile(r'([\d\.]+)\s*([unp])[fh]', flags=re.IGNORECASE)
-            m = p.search(v)
-            if m is not None:
-                mult = 1000
-                if m.group(2).lower() == 'n':
-                    mult = 1000000
-                if m.group(2).lower() == 'u':
-                    mult = 1000000000
-                c = "{0:15d}".format(int(float(m.group(1)) * mult))
-                v = p.sub(c, v)
-                return v
-        # Resistors
-        if pref == 'R':
-            p = re.compile(r'(\d+)([rkm])(\d+)', flags=re.IGNORECASE)
-            m = p.search(v)
-            if m is not None:
-                c = m.group(1) + '.' + m.group(3) + m.group(2)
-                v = p.sub(c, v)
-            p = re.compile(r'([\d\.]+)\s*([km])', flags=re.IGNORECASE)
-            m = p.search(v)
-            mult = 1000
-            if m is not None:
-                if m.group(2).lower() == 'k':
-                    mult = 1000000
-                if m.group(2).lower() == 'm':
-                    mult = 1000000000
-                c = "{0:15d}".format(int(float(m.group(1)) * mult))
-                v = p.sub(c, v)
-                return v
-            p = re.compile(r'([\d\.]+)', flags=re.IGNORECASE)
-            m = p.search(v)
-            if m is not None:
-                c = "{0:15d}".format(int(float(m.group(1)) * mult))
-                v = p.sub(c, v)
-                return v
+        if pref in 'RLC' or pref == 'RV':
+            res = units.compMatch(self.getValue())
+            if res:
+                value, mult, unit = res
+                if pref in "CL":
+                    # fempto Farads
+                    value = "{0:15d}".format(int(value * 1e15 * mult + 0.1))
+                else:
+                    # milli Ohms
+                    value = "{0:15d}".format(int(value * 1000 * mult + 0.1))
+                return value
         return self.element.get("value")
 
     def getField(self, name, ignoreCase=True, libraryToo=True):

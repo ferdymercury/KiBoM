@@ -248,4 +248,15 @@ F 3 "~" H 2750 3650 50  0001 C CNN
 	1    2750 3650
 	1    0    0    -1  
 $EndComp
+$Comp
+L Device:R R5
+U 1 1 5F10D5C6
+P 2200 4150
+F 0 "R5" V 2280 4150 50  0000 C CNN
+F 1 "22m" V 2200 4150 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 2130 4150 50  0001 C CNN
+F 3 "~" H 2200 4150 50  0001 C CNN
+	1    2200 4150
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

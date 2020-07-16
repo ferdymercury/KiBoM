@@ -255,8 +255,8 @@ def test_sort_1():
     ctx.run(no_config_file=True)
     out = prj + '_bom_A.' + ext
     rows, components = ctx.load_csv(out)
-    check_kibom_test_netlist(rows, components, exclude=None, groups=13, comps=None)
+    check_kibom_test_netlist(rows, components, exclude=None, groups=14, comps=None)
     exp = ['C5', 'C6', 'C7', 'C8', 'C9', 'C10', 'C1', 'C2', 'C3', 'C4', 'C11', 'C12',
-           'R4', 'R9', 'R10', 'R3', 'R2', 'R1', 'R8', 'R7']
+           'R5', 'R4', 'R9', 'R10', 'R3', 'R2', 'R1', 'R8', 'R7']
     assert components == exp
     ctx.clean_up()
