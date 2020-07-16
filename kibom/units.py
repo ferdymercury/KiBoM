@@ -11,6 +11,7 @@ e.g.
 
 from __future__ import unicode_literals
 import re
+import locale
 
 PREFIX_MICRO = [u"μ", "u", "micro"]
 PREFIX_MILLI = ["milli", "m"]
@@ -32,6 +33,8 @@ UNIT_ALL = UNIT_R + UNIT_C + UNIT_L
 
 # Compiled regex to match the values (#110)
 match = None
+# Current locale decimal point value (#111)
+decimal_point = None
 
 
 def getUnit(unit):
@@ -100,6 +103,13 @@ def compMatch(component):
     e.g. compMatch('10R2') returns (10, R)
     e.g. compMatch('3.3mOhm') returns (0.0033, R)
     """
+
+    # Convert the decimal point from the current locale to a '.' (#111)
+    global decimal_point
+    if not decimal_point:
+        decimal_point = locale.localeconv()['decimal_point']
+    if decimal_point:
+        component = component.replace(decimal_point, ".")
 
     # Remove any commas (not lower: #109)
     component = component.strip().replace(",", "")

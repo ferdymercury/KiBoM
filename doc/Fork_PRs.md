@@ -17,6 +17,7 @@ This document explains the additions to the original KiBoM code.
 - [Add support for spaces between a value an its unit](Fork_PRs/Space_before_unit.md)
 - [Use "M" for "mega" and "m" for "milli"](Fork_PRs/Mega_prefix.md)
 - [Optimize the regex used to match component values](Fork_PRs/Optimize_units_regex.md)
+- [Avoid destroying the current locale's decimal point](Fork_PRs/Use_locale_decimal_point.md)
 
 ### Small fixes
 
