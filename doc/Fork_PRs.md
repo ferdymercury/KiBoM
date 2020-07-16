@@ -15,6 +15,7 @@ This document explains the additions to the original KiBoM code.
 ### Small additions
 
 - [Add support for spaces between a value an its unit](Fork_PRs/Space_before_unit.md)
+- [Use "M" for "mega" and "m" for "milli"](Fork_PRs/Mega_prefix.md)
 
 ### Small fixes
 
