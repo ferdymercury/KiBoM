@@ -4,6 +4,7 @@ BROWSER=x-www-browser
 PYTEST=pytest-3
 OUT_DIR=output
 SINGLE_TEST=test_bom_ok
+XMLS=tests/input_samples/
 
 deb:
 	fakeroot dpkg-buildpackage -uc -b
@@ -35,4 +36,12 @@ single_test:
 	@cat pp/*/error.txt
 	@rm -f tests/input_samples/bom.ini
 
-.PHONY: deb deb_clean
+doc/Fork_PRs/examples/ds_link.html: doc/Fork_PRs/examples/ds_link.ini
+	./KiBOM_CLI.py --cfg $< -d `pwd`/$(@D) $(XMLS)links.xml $(@F)
+
+doc/Fork_PRs/examples/ds_no_link.html: doc/Fork_PRs/examples/ds_no_link.ini
+	./KiBOM_CLI.py --cfg $< -d `pwd`/$(@D) $(XMLS)links.xml $(@F)
+
+examples: doc/Fork_PRs/examples/ds_link.html doc/Fork_PRs/examples/ds_no_link.html
+
+.PHONY: deb deb_clean single_test test_local lint examples
