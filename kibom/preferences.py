@@ -44,7 +44,7 @@ class BomPref:
     OPT_HIDE_HEADERS = "hide_headers"
     OPT_HIDE_PCB_INFO = "hide_pcb_info"
     OPT_DATASHEET_AS_LINK = "datasheet_as_link"  # (#112)
-    OPT_DIGIKEY_LINK = "digikey_link"  # (#80)
+    OPT_DIGIKEY_LINK = "digikey_link"  # (#114)
 
     def __init__(self):
         # List of headings to ignore in BoM generation
@@ -66,7 +66,7 @@ class BomPref:
         self.mergeBlankFields = True  # Blanks fields will be merged when possible
         self.hideHeaders = False
         self.hidePcbInfo = False
-        self.digikey_link = False  # (#80)
+        self.digikey_link = False  # (#114)
         self.configField = "Config"  # Default field used for part fitting config
         self.pcbConfig = ["default"]
 
@@ -177,7 +177,7 @@ class BomPref:
         if cf.has_option(self.SECTION_GENERAL, self.OPT_HIDE_PCB_INFO):
             self.hidePcbInfo = cf.get(self.SECTION_GENERAL, self.OPT_HIDE_PCB_INFO) == '1'
 
-        # (#80)
+        # (#114)
         if cf.has_option(self.SECTION_GENERAL, self.OPT_DIGIKEY_LINK):
             self.digikey_link = cf.get(self.SECTION_GENERAL, self.OPT_DIGIKEY_LINK)
         else:
@@ -269,7 +269,7 @@ class BomPref:
         cf.set(self.SECTION_GENERAL, '; Whether to hide PCB info from output file')
         cf.set(self.SECTION_GENERAL, self.OPT_HIDE_PCB_INFO, self.hidePcbInfo)
 
-        # (#80)
+        # (#114)
         cf.set(self.SECTION_GENERAL, '; Interpret as a Digikey P/N and link the following field')
         cf.set(self.SECTION_GENERAL, self.OPT_DIGIKEY_LINK, self.digikey_link)
 
