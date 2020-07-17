@@ -22,6 +22,7 @@ This document explains the additions to the original KiBoM code.
 ### Small fixes
 
 - [+VARIANT mechanism not working as expected](Fork_PRs/Variant_plus.md)
+- [Skip the DNF HTML list if it will contain 0 rows](Fork_PRs/Skip_empty_DNF_table.md)
 
 ## Already merged
 
