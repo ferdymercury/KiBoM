@@ -174,7 +174,11 @@ def WriteHTML(filename, groups, net, headings, prefs):
  
                 for n, r in enumerate(row):
  
-                    if len(r) == 0:
+                    # Link this column to the datasheet? (#112)
+                    if link_datasheet and headings[n] == link_datasheet:
+                        r = '<a href="' + group.getField(ColumnList.COL_DATASHEET) + '">' + r + '</a>'
+
+                    if (len(r) == 0) or (r.strip() == "~"):
                         bg = BG_EMPTY
                     else:
                         bg = bgColor(headings[n])
