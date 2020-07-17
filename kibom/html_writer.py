@@ -51,6 +51,8 @@ def WriteHTML(filename, groups, net, headings, prefs):
     nFitted = sum([g.getCount() for g in groups if g.isFitted()])
     nBuild = nFitted * prefs.boards
 
+    link_datasheet = prefs.as_link  # (#112)
+
     with open(filename, "w") as html:
 
         # HTML Header
@@ -122,6 +124,10 @@ def WriteHTML(filename, groups, net, headings, prefs):
                 html.write('\t<td align="center">{n}</td>\n'.format(n=rowCount))
 
             for n, r in enumerate(row):
+
+                # Link this column to the datasheet? (#112)
+                if link_datasheet and headings[n] == link_datasheet:
+                    r = '<a href="' + group.getField(ColumnList.COL_DATASHEET) + '">' + r + '</a>'
 
                 if (len(r) == 0) or (r.strip() == "~"):
                     bg = BG_EMPTY

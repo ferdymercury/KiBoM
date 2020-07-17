@@ -260,3 +260,17 @@ def test_sort_1():
            'R5', 'R4', 'R9', 'R10', 'R3', 'R2', 'R1', 'R8', 'R7']
     assert components == exp
     ctx.clean_up()
+
+
+def test_datasheet_link():
+    prj = 'links'
+    ext = 'html'
+    ctx = context.TestContext('DataSheetLink', prj, ext, 'datasheet_link')
+    ctx.run()
+    out = prj + '.' + ext
+    rows, components, dnf = ctx.load_html(out, 3, False)
+    for c in components:
+        assert c.startswith('<a href')
+        assert 'pdf' in c
+        logging.debug(c + ' OK')
+    ctx.clean_up()

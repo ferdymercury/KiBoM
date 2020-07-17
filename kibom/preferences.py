@@ -43,7 +43,7 @@ class BomPref:
     OPT_CONFIG_FIELD = "fit_field"
     OPT_HIDE_HEADERS = "hide_headers"
     OPT_HIDE_PCB_INFO = "hide_pcb_info"
-    OPT_DATASHEET_AS_LINK = "datasheet_as_link"  # (#79)
+    OPT_DATASHEET_AS_LINK = "datasheet_as_link"  # (#112)
     OPT_DIGIKEY_LINK = "digikey_link"  # (#80)
 
     def __init__(self):
@@ -71,7 +71,7 @@ class BomPref:
         self.pcbConfig = ["default"]
 
         self.backup = "%O.tmp"
-        self.as_link = False  # (#79)
+        self.as_link = False  # (#112)
 
         self.separatorCSV = None
         self.outputFileName = "%O_bom_%v%V"
@@ -165,7 +165,7 @@ class BomPref:
         else:
             self.backup = False
 
-        # (#79)
+        # (#112)
         if cf.has_option(self.SECTION_GENERAL, self.OPT_DATASHEET_AS_LINK):
             self.as_link = cf.get(self.SECTION_GENERAL, self.OPT_DATASHEET_AS_LINK)
         else:
@@ -253,7 +253,7 @@ class BomPref:
         cf.set(self.SECTION_GENERAL, '; Make a backup of the bom before generating the new one, using the following template')
         cf.set(self.SECTION_GENERAL, self.OPT_BACKUP, self.backup)
 
-        # (#79)
+        # (#112)
         cf.set(self.SECTION_GENERAL, '; Put the datasheet as a link for the following field')
         cf.set(self.SECTION_GENERAL, self.OPT_DATASHEET_AS_LINK, self.as_link)
 

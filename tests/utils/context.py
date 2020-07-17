@@ -29,7 +29,7 @@ class TestContext(object):
         self.prj_name = prj_name
         # The actual board file that will be loaded
         self._get_netlist_file()
-        # The YAML file we'll use
+        # The INI file we'll use
         self._get_config_name(config_name)
         # The actual output dir for this run
         self._set_up_output_dir(pytest.config.getoption('test_dir'))
@@ -52,7 +52,7 @@ class TestContext(object):
 
     def _get_config_dir(self):
         this_dir = os.path.dirname(os.path.realpath(__file__))
-        return os.path.join(this_dir, '../input_samples')
+        return os.path.join(this_dir, '../config_samples')
 
     def _get_config_name(self, name):
         skip_test = False
@@ -115,7 +115,7 @@ class TestContext(object):
             components.extend(comps)
         return rows, components
 
-    def load_html(self, filename):
+    def load_html(self, filename, column=4, split=True):
         file = self.expect_out_file(filename)
         with open(file) as f:
             html = f.read()
@@ -124,16 +124,26 @@ class TestContext(object):
         components_dnf = []
         prev = 0
         dnf = False
-        for entry in re.finditer(r'<tr>\s+<td.*>(\d+)<\/td>\s+<td.*>([^<]+)</td>\s+'
-                                 + r'<td.*>([^<]+)</td>\s+<td.*>([^<]+)</td>\s+<td.*>([^<]+)</td>\s+', html):
+        for entry in re.finditer(r'<tr>\s+'
+                                 + r'<td.*?>(\d+)</td>\s+'
+                                 + r'<td.*?>(.*)</td>\s+'
+                                 + r'<td.*?>(.*)</td>\s+'
+                                 + r'<td.*?>(.*)</td>\s+'
+                                 + r'<td.*?>(.*)</td>', html):
             cur = int(entry.group(1))
             if cur < prev:
                 dnf = True
             rows.append(entry.group(0))
             if dnf:
-                components_dnf.extend(entry.group(4).split(' '))
+                if split:
+                    components_dnf.extend(entry.group(column).split(' '))
+                else:
+                    components_dnf.append(entry.group(column))
             else:
-                components.extend(entry.group(4).split(' '))
+                if split:
+                    components.extend(entry.group(column).split(' '))
+                else:
+                    components.append(entry.group(column))
             prev = cur
         return rows, components, components_dnf
 

@@ -1,9 +1,9 @@
 # Adds an option to make a column to contain datasheet links
 
-- **Pull-request**: [#79](https://github.com/SchrodingersGat/KiBoM/pull/79)
-- **Opened**: 2020-03-11
+- **Pull-request**: [#112](https://github.com/SchrodingersGat/KiBoM/pull/112), was [#79](https://github.com/SchrodingersGat/KiBoM/pull/79)
+- **Opened**: 2020-07-16 (previous 2020-03-11)
 - **Status**: Open
-- **Branch**: datasheet_link
+- **Branch**: datasheet_link_2 (previous datasheet_link)
 
 ## Description
 

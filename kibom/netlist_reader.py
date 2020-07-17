@@ -108,17 +108,6 @@ class xmlElement():
 
         return ""
 
-    # Is it complete? assumes the target is an user defined field (#79)
-    def setField(self, elemName, value):
-        """Sets the text of elemName field
-        """
-        for child in self.children:
-            if child.name == "fields":
-                for tg in child.children:
-                    if tg.attributes["name"] == elemName:
-                        tg.setChars(value)
-        return ""
-
     # Is it complete? Assumes the destination is a KiCad base field (#81)
     def append(self, elemName, value):
         """Appends text to the indicated elemName
@@ -344,16 +333,6 @@ class netlist():
         ret.sort(key=lambda g: g.getRef())
 
         return ret
-
-    # Hack to avoid an extra column for the datasheet (#79)
-    def datasheetLink(self, components):
-        if not self.prefs.as_link:
-            return ""
-        for c in components:
-            ret = c.getDatasheet()
-            if ret != "":
-                c.element.setField(self.prefs.as_link, ' <a href="' + ret + '">' + c.getField(self.prefs.as_link) + '</a>')
-        return ""
 
     # Post-process the digikey P/N to be an URL (#80)
     def digikeyLink(self, groups):

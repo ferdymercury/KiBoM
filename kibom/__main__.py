@@ -52,11 +52,6 @@ def writeVariant(input_file, output_dir, output_file, variant, preferences):
     # Extract the components
     components = net.getInterestingComponents()
 
-    # Datasheet as link (#79)
-    ext = output_file.split('.')[-1].lower()
-    if ext in ["htm", "html"]:
-        net.datasheetLink(components)
-
     # Group the components
     groups = net.groupComponents(components)
 
@@ -104,7 +99,8 @@ def writeVariant(input_file, output_dir, output_file, variant, preferences):
     debug.message("Saving BOM File:", output_file)
 
     # Digikey P/N as URL (#80)
-    if ext in ["htm", "html"]:
+    ext = os.path.splitext(output_file)[1].lower()
+    if ext in [".htm", ".html"]:
         net.digikeyLink(groups)
 
     return WriteBoM(output_file, groups, net, columns.columns, preferences)
