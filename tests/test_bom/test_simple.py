@@ -23,6 +23,7 @@ Simple tests
 - html_generate_dnf = 0
 - use_alt = 1
 - Not test 'alt_wrap' because I'm not sure of it context.
+- number_rows = 0
 
 For debug information use:
 pytest-3 --log-cli-level debug
@@ -66,11 +67,11 @@ def check_kibom_test_netlist(rows, components, exclude=EXCLUDE_TEST, groups=5, c
         logging.debug("list of components OK")
 
 
-def check_dnc(rows, comp):
+def check_dnc(rows, comp, column=6):
     for row in rows:
         if row.find(comp) != -1:
             fields = row.split(',')
-            assert fields[6] == '1 (DNC)'
+            assert fields[column] == '1 (DNC)'
             logging.debug(comp + " is DNC OK")
             return
 
@@ -367,3 +368,16 @@ def test_use_alt():
 #     logging.debug(components)
 #     #check_kibom_test_netlist(rows, components, groups=5, comps=['C1-C4', 'R9-R10', 'R7', 'R8', 'R1-R5'])
 #     ctx.clean_up()
+
+
+def test_no_number_rows():
+    prj = 'kibom-test'
+    ext = 'csv'
+    ctx = context.TestContext('NoNumberRows', prj, ext, 'no_numbers')
+    ctx.run()
+    out = prj + '_bom_A.' + ext
+    rows, components = ctx.load_csv(out, 2)
+    check_kibom_test_netlist(rows, components)
+    check_dnc(rows, 'R7', 5)
+    ctx.clean_up()
+

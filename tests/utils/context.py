@@ -98,7 +98,7 @@ class TestContext(object):
         logging.debug(filename + ' OK')
         return file
 
-    def load_csv(self, filename):
+    def load_csv(self, filename, column=3):
         file = self.expect_out_file(filename)
         rows = []
         with open(file) as f:
@@ -111,7 +111,7 @@ class TestContext(object):
         components = []
         for r in rows:
             fields = r.split(',')
-            comps = fields[3].split(' ')
+            comps = fields[column].split(' ')
             components.extend(comps)
         return rows, components
 
