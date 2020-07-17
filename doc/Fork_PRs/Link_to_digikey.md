@@ -20,7 +20,7 @@ Note that this field must be a valid Digi-Key part number.
 Example:
 
 ```
-datasheet_as_link = digikey#
+digikey_link = digikey#
 ```
 
 This will make entries in the column `digikey#` (Digi-Key part number) links to the component's web page.
@@ -28,7 +28,7 @@ This will make entries in the column `digikey#` (Digi-Key part number) links to 
 You can specify more than one fiel name using tab (ASCII 9) as separator:
 
 ```
-datasheet_as_link = digikey#	digikey_alt#
+digikey_link = digikey#	digikey_alt#
 ```
 
 ## Limitations
