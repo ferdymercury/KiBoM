@@ -21,6 +21,7 @@ Simple tests
 - Join columns
 - ignore_dnf = 0
 - html_generate_dnf = 0
+- use_alt = 1
 
 For debug information use:
 pytest-3 --log-cli-level debug
@@ -339,3 +340,16 @@ def test_html_dont_generate_dnf():
     assert len(dnf) == 0
     ctx.clean_up()
 
+
+def test_use_alt():
+    """ use_alt = 1 """
+    prj = 'kibom-test'
+    ext = 'csv'
+    ctx = context.TestContext('UseAlt', prj, ext, 'use_alt')
+    ctx.run()
+    out = prj + '_bom_A.' + ext
+    rows, components = ctx.load_csv(out)
+    logging.debug(rows)
+    logging.debug(components)
+    check_kibom_test_netlist(rows, components, groups=5, comps=['C1-C4', 'R9-R10', 'R7', 'R8', 'R1-R5'])
+    ctx.clean_up()
