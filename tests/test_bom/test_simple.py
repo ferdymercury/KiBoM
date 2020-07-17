@@ -19,6 +19,7 @@ Simple tests
 - Datasheet as link
 - Digi-Key link
 - Join columns
+- ignore_dnf = 0
 
 For debug information use:
 pytest-3 --log-cli-level debug
@@ -309,4 +310,17 @@ def test_join_1():
     assert 'C1' in rows[0] and '1nF 10% 50V' in rows[0] and 'KEMET C0805C102K5RACTU' in rows[0]
     assert 'J1 J2' in rows[1] and 'Molex KK' in rows[1] and 'Molex 0022232021' in rows[1]
     assert 'R1' in rows[2] and '1k 5%' in rows[2] and 'Bourns CR0805-JW-102ELF' in rows[2]
+    ctx.clean_up()
+
+
+def test_include_dnf():
+    """ ignore_dnf = 0 """
+    prj = 'kibom-test'
+    ext = 'csv'
+    ctx = context.TestContext('IncludeDNF', prj, ext, 'include_dnf')
+    ctx.run()
+    out = prj + '_bom_A.' + ext
+    rows, components = ctx.load_csv(out)
+    check_kibom_test_netlist(rows, components, exclude=None, groups=6,
+                             comps=KIBOM_TEST_COMPONENTS + EXCLUDE_TEST)
     ctx.clean_up()
