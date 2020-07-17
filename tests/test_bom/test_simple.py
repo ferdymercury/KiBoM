@@ -20,6 +20,7 @@ Simple tests
 - Digi-Key link
 - Join columns
 - ignore_dnf = 0
+- html_generate_dnf = 0
 
 For debug information use:
 pytest-3 --log-cli-level debug
@@ -324,3 +325,17 @@ def test_include_dnf():
     check_kibom_test_netlist(rows, components, exclude=None, groups=6,
                              comps=KIBOM_TEST_COMPONENTS + EXCLUDE_TEST)
     ctx.clean_up()
+
+
+def test_html_dont_generate_dnf():
+    """ html_generate_dnf = 0 """
+    prj = 'kibom-test'
+    ext = 'html'
+    ctx = context.TestContext('DontGenerateDNF', prj, ext, 'html_dont_generate_dnf')
+    ctx.run()
+    out = prj + '_bom_A.' + ext
+    rows, components, rows_dnf, dnf = ctx.load_html(out)
+    check_kibom_test_netlist(rows, components, groups=5)
+    assert len(dnf) == 0
+    ctx.clean_up()
+
