@@ -2,7 +2,7 @@
 <export version="D">
   <design>
     <source>/home/salvador/0Data/Eccosur/kibom.INTI-CMNB/tests/input_samples/links.sch</source>
-    <date>vie 17 jul 2020 08:26:16 -03</date>
+    <date>vie 17 jul 2020 10:01:45 -03</date>
     <tool>Eeschema 5.1.6+dfsg1-1~bpo10+1</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -56,6 +56,7 @@
       <value>1nF</value>
       <datasheet>https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</datasheet>
       <fields>
+        <field name="Config">DNF</field>
         <field name="digikey#">399-1147-1-ND</field>
         <field name="manf#">C0805C102K5RACTU</field>
       </fields>

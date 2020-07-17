@@ -120,6 +120,7 @@ class TestContext(object):
         with open(file) as f:
             html = f.read()
         rows = []
+        rows_dnf = []
         components = []
         components_dnf = []
         prev = 0
@@ -133,19 +134,20 @@ class TestContext(object):
             cur = int(entry.group(1))
             if cur < prev:
                 dnf = True
-            rows.append(entry.group(0))
             if dnf:
+                rows_dnf.append(entry.group(0))
                 if split:
                     components_dnf.extend(entry.group(column).split(' '))
                 else:
                     components_dnf.append(entry.group(column))
             else:
+                rows.append(entry.group(0))
                 if split:
                     components.extend(entry.group(column).split(' '))
                 else:
                     components.append(entry.group(column))
             prev = cur
-        return rows, components, components_dnf
+        return rows, components, rows_dnf, components_dnf
 
     def load_xml(self, filename):
         file = self.expect_out_file(filename)

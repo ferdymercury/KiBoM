@@ -86,7 +86,7 @@ def test_bom_simple_html():
     ctx = context.TestContext('BoMSimpleHTML', prj, ext)
     ctx.run(no_config_file=True)
     out = prj + '_bom_A.' + ext
-    rows, components, dnf = ctx.load_html(out)
+    rows, components, rows_dnf, dnf = ctx.load_html(out)
     check_kibom_test_netlist(rows, components, groups=6)
     assert len(dnf) == 1
     assert 'R6' in dnf
@@ -268,8 +268,10 @@ def test_datasheet_link():
     ctx = context.TestContext('DataSheetLink', prj, ext, 'datasheet_link')
     ctx.run()
     out = prj + '.' + ext
-    rows, components, dnf = ctx.load_html(out, 3, False)
-    for c in components:
+    rows, components, rows_dnf, dnf = ctx.load_html(out, 3, False)
+    assert len(rows) == 2
+    assert len(rows_dnf) == 1
+    for c in components+dnf:
         assert c.startswith('<a href')
         assert 'pdf' in c
         logging.debug(c + ' OK')

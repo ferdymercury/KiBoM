@@ -64,6 +64,7 @@ F 2 "" H 3788 2350 50  0001 C CNN
 F 3 "https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf" H 3750 2500 50  0001 C CNN
 F 4 "399-1147-1-ND" H 3750 2500 50  0001 C CNN "digikey#"
 F 5 "C0805C102K5RACTU" H 3750 2500 50  0001 C CNN "manf#"
+F 6 "DNF" H 3750 2500 50  0001 C CNN "Config"
 	1    3750 2500
 	1    0    0    -1  
 $EndComp
