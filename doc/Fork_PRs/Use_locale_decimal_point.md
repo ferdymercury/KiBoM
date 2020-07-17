@@ -2,7 +2,7 @@
 
 - **Pull-request**: [#111](https://github.com/SchrodingersGat/KiBoM/pull/111)
 - **Opened**: 2020-07-16
-- **Status**: Open
+- **Status**: Merged (2020-07-17)
 - **Branch**: locale_decimal_point_in_value
 
 ## Description
