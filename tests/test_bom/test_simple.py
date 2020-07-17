@@ -271,8 +271,24 @@ def test_datasheet_link():
     rows, components, rows_dnf, dnf = ctx.load_html(out, 3, False)
     assert len(rows) == 2
     assert len(rows_dnf) == 1
-    for c in components+dnf:
-        assert c.startswith('<a href')
+    for c in components + dnf:
+        assert c.strip().startswith('<a href')
         assert 'pdf' in c
+        logging.debug(c + ' OK')
+    ctx.clean_up()
+
+
+def test_digikey_link():
+    prj = 'links'
+    ext = 'html'
+    ctx = context.TestContext('DigiKeyLink', prj, ext, 'digikey_link')
+    ctx.run()
+    out = prj + '.' + ext
+    rows, components, rows_dnf, dnf = ctx.load_html(out, 5, False)
+    assert len(rows) == 2
+    assert len(rows_dnf) == 1
+    for c in components + dnf:
+        assert c.strip().startswith('<a href')
+        assert 'digikey' in c
         logging.debug(c + ' OK')
     ctx.clean_up()
