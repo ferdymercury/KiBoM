@@ -35,3 +35,24 @@ digikey_link = digikey#	digikey_alt#
 
 - Only available for HTML.
 - Could break if Digi-Key changes it web layout. Please report any problem.
+
+## Example
+
+Schematic: [links.sch](../../tests/input_samples/links.sch)
+
+### Without `digikey_link`
+
+Configuration: [dk_no_link.ini](examples/dk_no_link.ini)
+Generated: [BoM](https://htmlpreview.github.io/?https://github.com/INTI-CMNB/KiBoM/blob/master/doc/Fork_PRs/examples/dk_no_link.html)
+
+### With `digikey_link`
+
+In `[BOM_OPTIONS]` section we set:
+
+```
+digikey_link = digikey#
+```
+
+Configuration: [dk_link.ini](examples/dk_link.ini)
+Generated: [BoM](https://htmlpreview.github.io/?https://github.com/INTI-CMNB/KiBoM/blob/master/doc/Fork_PRs/examples/dk_link.html)
+
