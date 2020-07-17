@@ -87,7 +87,7 @@ def test_bom_simple_html():
     ctx.run(no_config_file=True)
     out = prj + '_bom_A.' + ext
     rows, components, rows_dnf, dnf = ctx.load_html(out)
-    check_kibom_test_netlist(rows, components, groups=6)
+    check_kibom_test_netlist(rows, components, groups=5)
     assert len(dnf) == 1
     assert 'R6' in dnf
     ctx.clean_up()
