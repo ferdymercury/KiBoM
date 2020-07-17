@@ -33,7 +33,7 @@ UNIT_ALL = UNIT_R + UNIT_C + UNIT_L
 
 # Compiled regex to match the values (#110)
 match = None
-# Current locale decimal point value (#111)
+# Current locale decimal point value
 decimal_point = None
 
 
@@ -104,11 +104,11 @@ def compMatch(component):
     e.g. compMatch('3.3mOhm') returns (0.0033, R)
     """
 
-    # Convert the decimal point from the current locale to a '.' (#111)
+    # Convert the decimal point from the current locale to a '.'
     global decimal_point
     if not decimal_point:
         decimal_point = locale.localeconv()['decimal_point']
-    if decimal_point:
+    if decimal_point and decimal_point != '.':
         component = component.replace(decimal_point, ".")
 
     # Remove any commas (not lower: #109)
