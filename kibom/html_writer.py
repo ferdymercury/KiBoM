@@ -52,6 +52,9 @@ def WriteHTML(filename, groups, net, headings, prefs):
     nBuild = nFitted * prefs.boards
 
     link_datasheet = prefs.as_link  # (#112)
+    link_digikey = None
+    if prefs.digikey_link:
+        link_digikey = prefs.digikey_link.split("\t")
 
     with open(filename, "w") as html:
 
@@ -129,6 +132,9 @@ def WriteHTML(filename, groups, net, headings, prefs):
                 if link_datasheet and headings[n] == link_datasheet:
                     r = '<a href="' + group.getField(ColumnList.COL_DATASHEET) + '">' + r + '</a>'
 
+                if link_digikey and headings[n] in link_digikey:
+                    r = '<a href="http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=' + r + '">' + r + '</a>'
+
                 if (len(r) == 0) or (r.strip() == "~"):
                     bg = BG_EMPTY
                 else:
@@ -177,6 +183,9 @@ def WriteHTML(filename, groups, net, headings, prefs):
                     # Link this column to the datasheet? (#112)
                     if link_datasheet and headings[n] == link_datasheet:
                         r = '<a href="' + group.getField(ColumnList.COL_DATASHEET) + '">' + r + '</a>'
+
+                    if link_digikey and headings[n] in link_digikey:
+                        r = '<a href="http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=' + r + '">' + r + '</a>'
 
                     if (len(r) == 0) or (r.strip() == "~"):
                         bg = BG_EMPTY

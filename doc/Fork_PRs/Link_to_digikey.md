@@ -1,9 +1,9 @@
 # Added 'digikey_link' to make a column with links to digikey P/Ns
 
-- **Pull-request**: [#80](https://github.com/SchrodingersGat/KiBoM/pull/80)
-- **Opened**: 2020-03-11
+- **Pull-request**: [#114](https://github.com/SchrodingersGat/KiBoM/pull/114), was [#80](https://github.com/SchrodingersGat/KiBoM/pull/80)
+- **Opened**: 2020-07-17 (previous 2020-03-11)
 - **Status**: Open
-- **Branch**: digikey_link
+- **Branch**: digikey_link_2 (previous was digikey_link)
 
 ## Description
 

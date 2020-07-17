@@ -98,11 +98,6 @@ def writeVariant(input_file, output_dir, output_file, variant, preferences):
 
     debug.message("Saving BOM File:", output_file)
 
-    # Digikey P/N as URL (#80)
-    ext = os.path.splitext(output_file)[1].lower()
-    if ext in [".htm", ".html"]:
-        net.digikeyLink(groups)
-
     return WriteBoM(output_file, groups, net, columns.columns, preferences)
 
 
