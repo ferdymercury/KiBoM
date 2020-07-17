@@ -22,6 +22,7 @@ Simple tests
 - ignore_dnf = 0
 - html_generate_dnf = 0
 - use_alt = 1
+- Not test 'alt_wrap' because I'm not sure of it context.
 
 For debug information use:
 pytest-3 --log-cli-level debug
@@ -349,7 +350,20 @@ def test_use_alt():
     ctx.run()
     out = prj + '_bom_A.' + ext
     rows, components = ctx.load_csv(out)
-    logging.debug(rows)
-    logging.debug(components)
     check_kibom_test_netlist(rows, components, groups=5, comps=['C1-C4', 'R9-R10', 'R7', 'R8', 'R1-R5'])
     ctx.clean_up()
+
+
+# Disabled until I understand the exact usage
+# def test_alt_wrap():
+#     """ alt_wrap = 1 """
+#     prj = 'kibom-test'
+#     ext = 'html'
+#     ctx = context.TestContext('AltWrap', prj, ext, 'alt_wrap')
+#     ctx.run()
+#     out = prj + '_bom_A.' + ext
+#     rows, components, rows_dnf, dnf = ctx.load_html(out, split=False)
+#     logging.debug(rows)
+#     logging.debug(components)
+#     #check_kibom_test_netlist(rows, components, groups=5, comps=['C1-C4', 'R9-R10', 'R7', 'R8', 'R1-R5'])
+#     ctx.clean_up()
