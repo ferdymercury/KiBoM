@@ -24,6 +24,7 @@ F 1 "Molex KK" H 2850 2100 50  0000 C CNN
 F 2 "" H 2850 2300 50  0001 C CNN
 F 3 "https://www.molex.com/webdocs/datasheets/pdf/en-us//0022232021_PCB_HEADERS.pdf" H 2850 2300 50  0001 C CNN
 F 4 "900-0022232021-ND" H 2850 2300 50  0001 C CNN "digikey#"
+F 5 "0022232021" H 2850 2300 50  0001 C CNN "manf#"
 	1    2850 2300
 	1    0    0    -1  
 $EndComp
@@ -36,6 +37,7 @@ F 1 "Molex KK" H 4700 2100 50  0000 R CNN
 F 2 "" H 4500 2300 50  0001 C CNN
 F 3 "https://www.molex.com/webdocs/datasheets/pdf/en-us//0022232021_PCB_HEADERS.pdf" H 4500 2300 50  0001 C CNN
 F 4 "900-0022232021-ND" H 4500 2300 50  0001 C CNN "digikey#"
+F 5 "0022232021" H 4500 2300 50  0001 C CNN "manf#"
 	1    4500 2300
 	-1   0    0    -1  
 $EndComp
@@ -48,6 +50,7 @@ F 1 "1k" V 3450 2300 50  0000 C CNN
 F 2 "" V 3380 2300 50  0001 C CNN
 F 3 "https://www.bourns.com/docs/product-datasheets/CRxxxxx.pdf" H 3450 2300 50  0001 C CNN
 F 4 "CR0805-JW-102ELFCT-ND" V 3450 2300 50  0001 C CNN "digikey#"
+F 5 "CR0805-JW-102ELF" V 3450 2300 50  0001 C CNN "manf#"
 	1    3450 2300
 	0    1    1    0   
 $EndComp
@@ -60,6 +63,7 @@ F 1 "1nF" H 3865 2455 50  0000 L CNN
 F 2 "" H 3788 2350 50  0001 C CNN
 F 3 "https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf" H 3750 2500 50  0001 C CNN
 F 4 "399-1147-1-ND" H 3750 2500 50  0001 C CNN "digikey#"
+F 5 "C0805C102K5RACTU" H 3750 2500 50  0001 C CNN "manf#"
 	1    3750 2500
 	1    0    0    -1  
 $EndComp

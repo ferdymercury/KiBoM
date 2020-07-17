@@ -26,3 +26,26 @@ This will make entries in the column `manf#` (manufacturer part number) links to
 ## Limitations
 
 Only available for HTML
+
+## Example
+
+Schematic: [links.sch](../../tests/input_samples/links.sch)
+
+### Without `datasheet_as_link`
+
+Configuration: [ds_no_link.ini](examples/ds_no_link.ini)
+Generated: [BoM](examples/ds_no_link.html)
+
+### With `datasheet_as_link`
+
+In `[BOM_OPTIONS]` section we set:
+
+```
+datasheet_as_link = manf#
+```
+
+And in the `[IGNORE_COLUMNS]` section we add `Datasheet`. So we save one column.
+
+Configuration: [ds_link.ini]( examples/ds_link.ini)
+Generated: [BoM](examples/ds_link.html)
+

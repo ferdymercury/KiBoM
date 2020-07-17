@@ -2,7 +2,7 @@
 <export version="D">
   <design>
     <source>/home/salvador/0Data/Eccosur/kibom.INTI-CMNB/tests/input_samples/links.sch</source>
-    <date>jue 16 jul 2020 20:20:35 -03</date>
+    <date>vie 17 jul 2020 08:26:16 -03</date>
     <tool>Eeschema 5.1.6+dfsg1-1~bpo10+1</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -24,6 +24,7 @@
       <datasheet>https://www.molex.com/webdocs/datasheets/pdf/en-us//0022232021_PCB_HEADERS.pdf</datasheet>
       <fields>
         <field name="digikey#">900-0022232021-ND</field>
+        <field name="manf#">0022232021</field>
       </fields>
       <libsource lib="Connector" part="Conn_01x02_Male" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
       <sheetpath names="/" tstamps="/"/>
@@ -34,6 +35,7 @@
       <datasheet>https://www.molex.com/webdocs/datasheets/pdf/en-us//0022232021_PCB_HEADERS.pdf</datasheet>
       <fields>
         <field name="digikey#">900-0022232021-ND</field>
+        <field name="manf#">0022232021</field>
       </fields>
       <libsource lib="Connector" part="Conn_01x02_Male" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
       <sheetpath names="/" tstamps="/"/>
@@ -44,6 +46,7 @@
       <datasheet>https://www.bourns.com/docs/product-datasheets/CRxxxxx.pdf</datasheet>
       <fields>
         <field name="digikey#">CR0805-JW-102ELFCT-ND</field>
+        <field name="manf#">CR0805-JW-102ELF</field>
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <sheetpath names="/" tstamps="/"/>
@@ -54,6 +57,7 @@
       <datasheet>https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</datasheet>
       <fields>
         <field name="digikey#">399-1147-1-ND</field>
+        <field name="manf#">C0805C102K5RACTU</field>
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <sheetpath names="/" tstamps="/"/>
