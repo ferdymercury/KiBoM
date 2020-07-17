@@ -16,6 +16,9 @@ Simple tests
   - V1+V3 from kibom-variante
 - Components units
   - Sort and groups of RLC_sort
+- Datasheet as link
+- Digi-Key link
+- Join columns
 
 For debug information use:
 pytest-3 --log-cli-level debug
@@ -291,4 +294,19 @@ def test_digikey_link():
         assert c.strip().startswith('<a href')
         assert 'digikey' in c
         logging.debug(c + ' OK')
+    ctx.clean_up()
+
+
+def test_join_1():
+    prj = 'join'
+    ext = 'html'
+    ctx = context.TestContext('Join_1', prj, ext, 'join')
+    ctx.run()
+    out = prj + '.' + ext
+    rows, components, rows_dnf, dnf = ctx.load_html(out, 2, False)
+    assert len(rows) == 3
+    assert len(rows_dnf) == 0
+    assert 'C1' in rows[0] and '1nF 10% 50V' in rows[0] and 'KEMET C0805C102K5RACTU' in rows[0]
+    assert 'J1 J2' in rows[1] and 'Molex KK' in rows[1] and 'Molex 0022232021' in rows[1]
+    assert 'R1' in rows[2] and '1k 5%' in rows[2] and 'Bourns CR0805-JW-102ELF' in rows[2]
     ctx.clean_up()

@@ -108,16 +108,6 @@ class xmlElement():
 
         return ""
 
-    # Is it complete? Assumes the destination is a KiCad base field (#81)
-    def append(self, elemName, value):
-        """Appends text to the indicated elemName
-        """
-        for child in self.children:
-            ret = child.get(elemName)
-            if ret != "":
-                child.addChars(value)
-        return ""
-
 
 class libpart():
     """Class for a library part, aka 'libpart' in the xml netlist file.
@@ -337,16 +327,6 @@ class netlist():
     def groupComponents(self, components):
 
         groups = []
-
-        # Join fields like voltage, current, power and tolerance with the value (#81)
-        for join_l in self.prefs.join:
-            elements = len(join_l)
-            if elements > 1:
-                for j in range(1, elements):
-                    for c in components:
-                        ret = c.getField(join_l[j])
-                        if ret != "":
-                            c.element.append(join_l[0], ' ' + ret)
 
         # Iterate through each component, and test whether a group for these already exists
         for c in components:

@@ -1,9 +1,9 @@
 # Added "join" to join fields like voltage, current, etc. with the value
 
-- **Pull-request**: [#81](https://github.com/SchrodingersGat/KiBoM/pull/81)
-- **Opened**: 2020-03-11
+- **Pull-request**: [#115](https://github.com/SchrodingersGat/KiBoM/pull/115), was [#81](https://github.com/SchrodingersGat/KiBoM/pull/81)
+- **Opened**: 2020-07-17 (previous 2020-03-11)
 - **Status**: Open
-- **Branch**: join_fields
+- **Branch**: join_fields_2 (previous was join_fields)
 
 ## Description
 
@@ -16,8 +16,8 @@ Use tab (ASCII 9) as separator. Example:
 
 ```
 [JOIN]
-value	voltage	current	power	tolerance
+Value	Voltage	Current	Power	Tolerance
 ```
 
-This will attach the `voltage`, `current`, `power` and `tolerance` fields to the `value` field.
+This will attach the `Voltage`, `Current`, `Power` and `Tolerance` fields to the `Value` field. All case sensitive.
 
