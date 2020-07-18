@@ -2,7 +2,7 @@
 
 - **Pull-request**: [#114](https://github.com/SchrodingersGat/KiBoM/pull/114), was [#80](https://github.com/SchrodingersGat/KiBoM/pull/80)
 - **Opened**: 2020-07-17 (previous 2020-03-11)
-- **Status**: Open
+- **Status**: Merged (2020-07-17)
 - **Branch**: digikey_link_2 (previous was digikey_link)
 
 ## Description

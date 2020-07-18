@@ -2,7 +2,7 @@
 
 - **Pull-request**: [#113](https://github.com/SchrodingersGat/KiBoM/pull/113)
 - **Opened**: 2020-07-17
-- **Status**: Open
+- **Status**: Merged (2020-07-17)
 - **Branch**: skip_dnf_list_if_empty
 
 ## Description

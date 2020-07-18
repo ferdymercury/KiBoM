@@ -2,7 +2,7 @@
 
 - **Pull-request**: [#115](https://github.com/SchrodingersGat/KiBoM/pull/115), was [#81](https://github.com/SchrodingersGat/KiBoM/pull/81)
 - **Opened**: 2020-07-17 (previous 2020-03-11)
-- **Status**: Open
+- **Status**: Merged (2020-07-17)
 - **Branch**: join_fields_2 (previous was join_fields)
 
 ## Description

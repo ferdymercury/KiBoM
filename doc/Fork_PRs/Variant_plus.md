@@ -2,7 +2,7 @@
 
 - **Pull-request**: [#106](https://github.com/SchrodingersGat/KiBoM/pull/106)
 - **Opened**: 2020-07-15
-- **Status**: Open
+- **Status**: Merged (2020-07-17)
 - **Branch**: fix_variants
 
 ## Description
