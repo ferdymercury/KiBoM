@@ -380,4 +380,3 @@ def test_no_number_rows():
     check_kibom_test_netlist(rows, components)
     check_dnc(rows, 'R7', 5)
     ctx.clean_up()
-
