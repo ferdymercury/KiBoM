@@ -35,8 +35,6 @@ setuptools.setup(
  
     scripts=['KiBOM_CLI.py'],
 
-    scripts=['KiBOM_CLI.py'],
-
     install_requires=[
         "xlsxwriter",
     ],
