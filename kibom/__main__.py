@@ -35,7 +35,6 @@ from . import debug
 def writeVariant(input_file, output_dir, output_file, variant, preferences):
     
     if variant is not None:
-        # Fix +Variant (#106)
         preferences.pcbConfig = variant.strip().lower().split(',')
         
     debug.message("PCB variant:", ", ".join(preferences.pcbConfig))

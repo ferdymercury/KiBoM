@@ -298,7 +298,6 @@ class Component():
     def getRef(self):
         return self.element.get("comp", "ref")
 
-    # Fix for +VARIANT (#106)
     def isFitted(self):
         """ Determine if a component is FITTED or not """
 
