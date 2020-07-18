@@ -6,12 +6,12 @@ This document explains the additions to the original KiBoM code.
 
 ### Interesting additions
 
-- [Smarter R, L and C sort](Fork_PRs/Smart_sort_for_RLC.md)
-- [Links to datasheet in a configurable column](Fork_PRs/Datasheet_as_link.md)
+- [Smarter R, L and C sort](Fork_PRs/Smart_sort_for_RLC.md) (#82)
+- [Links to datasheet in a configurable column](Fork_PRs/Datasheet_as_link.md) (#112)
 
 ### Small additions
 
-- [Optimize the regex used to match component values](Fork_PRs/Optimize_units_regex.md)
+- [Optimize the regex used to match component values](Fork_PRs/Optimize_units_regex.md) (#110)
 
 
 ## Already merged
