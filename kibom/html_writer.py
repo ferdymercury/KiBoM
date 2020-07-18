@@ -150,7 +150,6 @@ def WriteHTML(filename, groups, net, headings, prefs):
         html.write("</table>\n")
         html.write("<br><br>\n")
 
-        # DNF table (skip if empty (#113))
         if prefs.generateDNF and rowCount != len(groups):
             html.write("<h2>Optional components (DNF=Do Not Fit)</h2>\n")
  
@@ -182,7 +181,7 @@ def WriteHTML(filename, groups, net, headings, prefs):
                     html.write('\t<td align="center">{n}</td>\n'.format(n=rowCount))
  
                 for n, r in enumerate(row):
- 
+
                     # Link this column to the datasheet? (#112)
                     if link_datasheet and headings[n] == link_datasheet:
                         r = '<a href="' + group.getField(ColumnList.COL_DATASHEET) + '">' + r + '</a>'
