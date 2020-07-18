@@ -17,6 +17,7 @@ This document explains the additions to the original KiBoM code.
 ### Small fixes
 
 - [Fix extra parameter in getAltRefs](Fork_PRs/Fix_getAltRefs) (#119)
+- [Tolerate no `output_file_name` and/or `variant_file_name_format`](Fork_PRs/Tolerate_no_outname.md) (#121)
 
 ## Already merged
 

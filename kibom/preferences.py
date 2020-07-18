@@ -149,9 +149,9 @@ class BomPref:
             self.useRegex = self.checkOption(cf, self.OPT_USE_REGEX, default=True)
             self.mergeBlankFields = self.checkOption(cf, self.OPT_MERGE_BLANK, default=True)
             self.outputFileName = cf.get(self.SECTION_GENERAL, self.OPT_OUTPUT_FILE_NAME,
-                                         fallback=self.outputFileName)
+                                         fallback=self.outputFileName)  # (#121)
             self.variantFileNameFormat = cf.get(self.SECTION_GENERAL, self.OPT_VARIANT_FILE_NAME_FORMAT,
-                                                fallback=self.variantFileNameFormat)
+                                                fallback=self.variantFileNameFormat)  # (#121)
 
         if cf.has_option(self.SECTION_GENERAL, self.OPT_CONFIG_FIELD):
             self.configField = cf.get(self.SECTION_GENERAL, self.OPT_CONFIG_FIELD)
