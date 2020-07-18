@@ -1,7 +1,7 @@
 # Optimize the regex used to match component values
 
 - **Pull-request**: [#110](https://github.com/SchrodingersGat/KiBoM/pull/110)
-- **Opened**: 2020-07-16
+- **Opened**: 2020-07-16 (updated 2020-07-18)
 - **Status**: Open
 - **Branch**: optimize_units_regex
 
