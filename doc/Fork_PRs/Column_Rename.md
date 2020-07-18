@@ -1,7 +1,7 @@
 # Add a mechanism to rename columns
 
 - **Pull-request**: [#120](https://github.com/SchrodingersGat/KiBoM/pull/120)
-- **Opened**: 2020-03-18
+- **Opened**: 2020-07-18
 - **Status**: Open
 - **Branch**: column_rename
 
