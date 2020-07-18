@@ -1,7 +1,7 @@
 # Modified the R/L/C sort to try to make sense of the multiplier
 
 - **Pull-request**: [#82](https://github.com/SchrodingersGat/KiBoM/pull/82)
-- **Opened**: 2020-03-11 (updated 2020-07-16)
+- **Opened**: 2020-03-11 (updated 2020-07-16, 2020-07-18)
 - **Status**: Open
 - **Branch**: better_sort
 
