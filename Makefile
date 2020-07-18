@@ -54,8 +54,15 @@ doc/Fork_PRs/examples/no_join.html: doc/Fork_PRs/examples/no_join.ini
 doc/Fork_PRs/examples/join.html: doc/Fork_PRs/examples/join.ini
 	./KiBOM_CLI.py --cfg $< -d `pwd`/$(@D) $(XMLS)join.xml $(@F)
 
+doc/Fork_PRs/examples/col_rename.html: doc/Fork_PRs/examples/col_rename.ini
+	./KiBOM_CLI.py --cfg $< -d `pwd`/$(@D) $(XMLS)links.xml $(@F)
+
+doc/Fork_PRs/examples/col_no_rename.html: doc/Fork_PRs/examples/col_no_rename.ini
+	./KiBOM_CLI.py --cfg $< -d `pwd`/$(@D) $(XMLS)links.xml $(@F)
+
 examples: doc/Fork_PRs/examples/ds_link.html doc/Fork_PRs/examples/ds_no_link.html \
 	doc/Fork_PRs/examples/dk_link.html doc/Fork_PRs/examples/dk_no_link.html \
-	doc/Fork_PRs/examples/no_join.html doc/Fork_PRs/examples/join.html
+	doc/Fork_PRs/examples/no_join.html doc/Fork_PRs/examples/join.html \
+	doc/Fork_PRs/examples/col_rename.html doc/Fork_PRs/examples/col_no_rename.html
 
 .PHONY: deb deb_clean single_test test_local lint examples
