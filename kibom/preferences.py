@@ -25,7 +25,7 @@ class BomPref:
     SECTION_REGEXCLUDES = "REGEX_EXCLUDE"
     SECTION_REGINCLUDES = "REGEX_INCLUDE"
     SECTION_JOIN = "JOIN"  # (#81)
-    SECTION_COLUMN_RENAME = "COLUMN_RENAME"
+    SECTION_COLUMN_RENAME = "COLUMN_RENAME"  # (#120)
 
     OPT_DIGIKEY_LINK = "digikey_link"
     OPT_PCB_CONFIG = "pcb_configuration"
@@ -49,7 +49,7 @@ class BomPref:
     def __init__(self):
         # List of headings to ignore in BoM generation
         self.ignore = [
-            ColumnList.COL_PART_LIB.lower(),
+            ColumnList.COL_PART_LIB.lower(),  # (#120)
             ColumnList.COL_FP_LIB.lower(),
         ]
 
@@ -86,7 +86,7 @@ class BomPref:
             # User can add custom grouping columns in bom.ini
         ]
 
-        self.colRename = {}  # None by default
+        self.colRename = {}  # None by default (#120)
 
         self.regIncludes = []  # None by default
 
@@ -186,7 +186,7 @@ class BomPref:
         if self.SECTION_GROUPING_FIELDS in cf.sections():
             self.groups = [i for i in cf.options(self.SECTION_GROUPING_FIELDS)]
 
-        # Read out ignored-rows
+        # Read out ignored-rows (#120)
         if self.SECTION_IGNORE in cf.sections():
             self.ignore = [i.lower() for i in cf.options(self.SECTION_IGNORE)]
 
@@ -214,7 +214,7 @@ class BomPref:
                 if len(re.split('[ \t]+', pair)) == 2:
                     self.regIncludes.append(re.split('[ \t]+', pair))
 
-        if self.SECTION_COLUMN_RENAME in cf.sections():
+        if self.SECTION_COLUMN_RENAME in cf.sections():  # (#120)
             self.colRename = {}
             for pair in cf.options(self.SECTION_COLUMN_RENAME):
                 pair = re.split('\t', pair)
@@ -331,6 +331,7 @@ class BomPref:
                 continue
             cf.set(self.SECTION_REGINCLUDES, i[0] + "\t" + i[1])
 
+        # (#120)
         cf.add_section(self.SECTION_COLUMN_RENAME)
         cf.set(self.SECTION_COLUMN_RENAME, '; A list of columns to be renamed')
         cf.set(self.SECTION_COLUMN_RENAME, '; Format is: "[ColumName] [NewName]" (white-space separated)')

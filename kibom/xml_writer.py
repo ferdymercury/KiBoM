@@ -14,7 +14,7 @@ from xml.etree import ElementTree
 from xml.dom import minidom
 
 
-def WriteXML(filename, groups, net, headings, head_names, prefs):
+def WriteXML(filename, groups, net, headings, head_names, prefs):  # (#120)
 
     if not filename.endswith(".xml"):
         return False
@@ -49,7 +49,7 @@ def WriteXML(filename, groups, net, headings, head_names, prefs):
 
         attrib = {}
 
-        for i, h in enumerate(head_names):
+        for i, h in enumerate(head_names):  # (#120)
             h = h.replace(' ', '_')  # Replace spaces, xml no likey
             h = h.replace('"', '')
             h = h.replace("'", '')

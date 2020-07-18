@@ -32,7 +32,7 @@ def link(text):
     return text
 
 
-def WriteHTML(filename, groups, net, headings, head_names, prefs):
+def WriteHTML(filename, groups, net, headings, head_names, prefs):  # (#120)
     """
     Write BoM out to a HTML file
     filename = path to output file (must be a .htm or .html file)
@@ -101,7 +101,7 @@ def WriteHTML(filename, groups, net, headings, head_names, prefs):
         if prefs.numberRows:
             html.write("\t<th></th>\n")
 
-        for i, h in enumerate(head_names):
+        for i, h in enumerate(head_names):  # (#120)
             # Cell background color
             bg = bgColor(headings[i])
             html.write('\t<th align="center"{bg}>{h}</th>\n'.format(
@@ -161,7 +161,7 @@ def WriteHTML(filename, groups, net, headings, head_names, prefs):
             html.write("<tr>\n")
             if prefs.numberRows:
                 html.write("\t<th></th>\n")
-            for i, h in enumerate(head_names):
+            for i, h in enumerate(head_names):  # (#120)
                 # Cell background color
                 bg = bgColor(headings[i])
                 html.write('\t<th align="center"{bg}>{h}</th>\n'.format(h=h, bg=' bgcolor="{c}"'.format(c=bg) if bg else ''))

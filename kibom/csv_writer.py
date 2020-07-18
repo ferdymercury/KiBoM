@@ -5,7 +5,7 @@ import os
 import sys
 
 
-def WriteCSV(filename, groups, net, headings, head_names, prefs):
+def WriteCSV(filename, groups, net, headings, head_names, prefs):  # (#120)
     """
     Write BoM out to a CSV file
     filename = path to output file (must be a .csv, .txt or .tsv file)
@@ -43,7 +43,7 @@ def WriteCSV(filename, groups, net, headings, head_names, prefs):
     writer = csv.writer(f, delimiter=delimiter, lineterminator="\n")
 
     if not prefs.hideHeaders:
-        if prefs.numberRows:
+        if prefs.numberRows:  # (#120)
             comp = "Component"
             if comp.lower() in prefs.colRename:
                 comp = prefs.colRename[comp.lower()]
