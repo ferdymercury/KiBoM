@@ -32,6 +32,8 @@ setuptools.setup(
     license="MIT",
 
     packages=setuptools.find_packages(),
+ 
+    scripts=['KiBOM_CLI.py'],
 
     scripts=['KiBOM_CLI.py'],
 

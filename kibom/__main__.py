@@ -103,7 +103,7 @@ def writeVariant(input_file, output_dir, output_file, variant, preferences):
 
 def main():
     locale.setlocale(locale.LC_ALL, '')
-    # KiBOM_CLI.py (#104)
+
     prog = 'KiBOM_CLI.py'
     if __name__ == '__main__':
         prog = "python -m kibom"
