@@ -246,11 +246,28 @@ Multiple BoM output formats are supported:
 
 Output file format selection is set by the output filename. e.g. "bom.html" will be written to a HTML file, "bom.csv" will be written to a CSV file.
 
+### Digi-Key Linking
+
+If you have a field containing the Digi-Key part number you can make its column to contain links to the Digi-Key web page for this component. (*Note: Digi-Key links will only be generated for the HTML output format*).
+
+**Instructions**
+
+Specify a column (field) to use as the `digikey_link` field in the configuration file (ie. `bom.ini`). The value for this option is the column you want to convert into a link to the Digi-Key. Note that this field must contian a valid Digi-Key part number in each row. 
+
+For example:
+
+`digikey_link = digikeypn`
+
+This will render entries in the column *digikeypn* as hyperlinks to the component webpage on the Digi-Key website.
+
+**Limitations**
+
+Note that Digi-Key URL rendering will only be rendered for HTML file outputs.
+
 ### Configuration File
 BoM generation options can be configured (on a per-project basis) by editing the *bom.ini* file in the PCB project directory. This file is generated the first time that the KiBoM script is run, and allows configuration of the following options.
 * `ignore_dnf` : Component groups designated as 'DNF' (do not fit) will be excluded from the BoM output
 * `use_alt` : If this option is set, grouped references will be printed in the alternate compressed style eg: R1-R7,R18
-* `alt_wrap` : If this option is set to an integer `N`, the references field will wrap after `N` entries are printed
 * `number_rows` : Add row numbers to the BoM output
 * `group_connectors` : If this option is set, connector comparison based on the 'Value' field is ignored. This allows multiple connectors which are named for their function (e.g. "Power", "ICP" etc) can be grouped together.
 * `test_regex` : If this option is set, each component group row is test against a list of (user configurable) regular expressions. If any matches are found, that row is excluded from the output BoM file.
@@ -281,8 +298,6 @@ Example configuration file (.ini format) *default values shown*
 ignore_dnf = 1
 ; If 'use_alt' option is set to 1, grouped references will be printed in the alternate compressed style eg: R1-R7,R18
 use_alt = 0
-; If 'alt_wrap' option is set to and integer N, the references field will wrap after N entries are printed
-alt_wrap = 0
 ; If 'number_rows' option is set to 1, each row in the BoM will be prepended with an incrementing row number
 number_rows = 1
 ; If 'group_connectors' option is set to 1, connectors with the same footprints will be grouped together, independent of the name of the connector
@@ -455,6 +470,7 @@ An XLSX file output can be generated simply by changing the file extension
 
 With thanks to the following contributors:
 
+* https://github.com/set-soft
 * https://github.com/bootchk
 * https://github.com/diegoherranz
 * https://github.com/kylemanna
