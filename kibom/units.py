@@ -18,7 +18,7 @@ PREFIX_MILLI = ["milli", "m"]
 PREFIX_NANO = ["nano", "n"]
 PREFIX_PICO = ["pico", "p"]
 PREFIX_KILO = ["kilo", "k"]
-PREFIX_MEGA = ["mega", "meg", "M"]  # (#109)
+PREFIX_MEGA = ["mega", "meg", "M"]
 PREFIX_GIGA = ["giga", "g"]
 
 # All prefixes
@@ -65,7 +65,7 @@ def getPrefix(prefix):
     if not prefix:
         return 1
 
-    # 'M' is mega, 'm' is milli (#109)
+    # 'M' is mega, 'm' is milli
     if prefix != 'M':
         prefix = prefix.lower()
 
@@ -96,7 +96,6 @@ def matchString():
 
 
 def compMatch(component):
-    # Cosmetic (#108)
     """
     Return a normalized value and units for a given component value string
     e.g. compMatch('10R2') returns (10, R)
@@ -110,7 +109,7 @@ def compMatch(component):
     if decimal_point and decimal_point != '.':
         component = component.replace(decimal_point, ".")
 
-    # Remove any commas (not lower: #109)
+    # Remove any commas
     component = component.strip().replace(",", "")
 
     # Get the compiled regex (#110)
@@ -118,7 +117,7 @@ def compMatch(component):
     if not match:
         match = re.compile(matchString(), flags=re.IGNORECASE)
 
-    # Not lower, but ignore case (#109+#110)
+    # Not lower, but ignore case (#110)
     result = match.search(component)
 
     if not result:

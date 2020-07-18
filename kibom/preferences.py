@@ -44,7 +44,6 @@ class BomPref:
     OPT_HIDE_HEADERS = "hide_headers"
     OPT_HIDE_PCB_INFO = "hide_pcb_info"
     OPT_DATASHEET_AS_LINK = "datasheet_as_link"  # (#112)
-    OPT_DIGIKEY_LINK = "digikey_link"  # (#114)
 
     def __init__(self):
         # List of headings to ignore in BoM generation
@@ -66,7 +65,6 @@ class BomPref:
         self.mergeBlankFields = True  # Blanks fields will be merged when possible
         self.hideHeaders = False
         self.hidePcbInfo = False
-        self.digikey_link = False  # (#114)
         self.configField = "Config"  # Default field used for part fitting config
         self.pcbConfig = ["default"]
 
