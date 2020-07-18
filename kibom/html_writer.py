@@ -127,6 +127,8 @@ def WriteHTML(filename, groups, net, headings, prefs):
                 html.write('\t<td align="center">{n}</td>\n'.format(n=rowCount))
 
             for n, r in enumerate(row):
+                if link_digikey and headings[n] in link_digikey:
+                    r = '<a href="http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=' + r + '">' + r + '</a>'
 
                 # Link this column to the datasheet? (#112)
                 if link_datasheet and headings[n] == link_datasheet:
@@ -185,7 +187,6 @@ def WriteHTML(filename, groups, net, headings, prefs):
                     if link_datasheet and headings[n] == link_datasheet:
                         r = '<a href="' + group.getField(ColumnList.COL_DATASHEET) + '">' + r + '</a>'
 
-                    # Link this column to Digi-Key? (#114)
                     if link_digikey and headings[n] in link_digikey:
                         r = '<a href="http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=' + r + '">' + r + '</a>'
 
