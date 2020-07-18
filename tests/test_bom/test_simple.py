@@ -24,6 +24,11 @@ Simple tests
 - use_alt = 1
 - Not test 'alt_wrap' because I'm not sure of it context.
 - number_rows = 0
+- COLUMN_RENAME
+  - CSV
+  - HTML
+  - XML
+  - XLSX
 
 For debug information use:
 pytest-3 --log-cli-level debug
@@ -34,6 +39,7 @@ import os
 import sys
 import shutil
 import logging
+import re
 # Look for the 'utils' module from where the script is running
 prev_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if prev_dir not in sys.path:
@@ -379,4 +385,59 @@ def test_no_number_rows():
     rows, components = ctx.load_csv(out, 2)
     check_kibom_test_netlist(rows, components)
     check_dnc(rows, 'R7', 5)
+    ctx.clean_up()
+
+
+def test_column_rename_csv():
+    prj = 'links'
+    ext = 'csv'
+    ctx = context.TestContext('ColumnRenameCSV', prj, ext, 'col_rename')
+    ctx.run()
+    out = prj + '.' + ext
+    heads = ctx.load_csv_header(out)
+    assert heads == ['Renglón', 'Referencias', 'Componente', 'Valor', 'Código Digi-Key', 'Cantidad por PCB']
+    rows, components = ctx.load_csv(out, 1)
+    check_kibom_test_netlist(rows, components, exclude=[], groups=3, comps=['C1', 'J1', 'J2', 'R1'])
+    ctx.clean_up()
+
+
+def test_column_rename_html():
+    prj = 'links'
+    ext = 'html'
+    ctx = context.TestContext('ColumnRenameHTML', prj, ext, 'col_rename')
+    ctx.run()
+    out = prj + '.' + ext
+    heads = ctx.load_html_header(out)
+    assert heads == ('Referencias', 'Componente', 'Valor', 'Código Digi-Key', 'Cantidad por PCB')
+    rows, components, rows_dnf, dnf = ctx.load_html(out, 2)
+    check_kibom_test_netlist(rows, components, exclude=[], groups=3, comps=['C1', 'J1', 'J2', 'R1'])
+    ctx.clean_up()
+
+
+def test_column_rename_xml():
+    prj = 'links'
+    ext = 'xml'
+    ctx = context.TestContext('ColumnRenameXML', prj, ext, 'col_rename')
+    ctx.run()
+    out = prj + '.' + ext
+    rows, components = ctx.load_xml(out, 'Referencias')
+    m = re.match(r'<group\s+(.*?)="[^"]+"\s+(.*?)="[^"]+"\s+(.*?)="[^"]+"\s+(.*?)="[^"]+"\s+(.*?)="[^"]+"', rows[0].strip())
+    assert m
+    groups = m.groups()
+    for h in ['Referencias', 'Componente', 'Valor', 'Código_Digi-Key', 'Cantidad_por_PCB']:
+        assert h in groups
+    check_kibom_test_netlist(rows, components, exclude=[], groups=3, comps=['C1', 'J1', 'J2', 'R1'])
+    ctx.clean_up()
+
+
+def test_column_rename_xlsx():
+    prj = 'links'
+    ext = 'xlsx'
+    ctx = context.TestContext('ColumnRenameXLSX', prj, ext, 'col_rename')
+    ctx.run()
+    out = prj + '.' + ext
+    rows, components = ctx.load_xlsx(out, 2, True)
+    assert components == ['Renglón', 'Referencias', 'Componente', 'Valor', 'Código Digi-Key', 'Cantidad por PCB']
+    rows, components = ctx.load_xlsx(out, 2)
+    check_kibom_test_netlist(rows, components, exclude=[], groups=3, comps=['C1', 'J1', 'J2', 'R1'])
     ctx.clean_up()

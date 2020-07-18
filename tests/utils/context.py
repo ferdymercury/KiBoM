@@ -98,6 +98,12 @@ class TestContext(object):
         logging.debug(filename + ' OK')
         return file
 
+    def load_csv_header(self, filename):
+        file = self.expect_out_file(filename)
+        with open(file) as f:
+            head = f.readline()
+        return head.strip().split(',')
+
     def load_csv(self, filename, column=3):
         file = self.expect_out_file(filename)
         rows = []
@@ -114,6 +120,19 @@ class TestContext(object):
             comps = fields[column].split(' ')
             components.extend(comps)
         return rows, components
+
+    def load_html_header(self, filename, column=4, split=True):
+        file = self.expect_out_file(filename)
+        with open(file) as f:
+            html = f.read()
+        m = re.search(r'<tr>\s+'
+                      + r'<th></th>\s+'
+                      + r'<th.*?>(.*)</th>\s+'
+                      + r'<th.*?>(.*)</th>\s+'
+                      + r'<th.*?>(.*)</th>\s+'
+                      + r'<th.*?>(.*)</th>\s+'
+                      + r'<th.*?>(.*)</th>', html, re.MULTILINE)
+        return m.groups() if m else None
 
     def load_html(self, filename, column=4, split=True):
         file = self.expect_out_file(filename)
@@ -149,11 +168,11 @@ class TestContext(object):
             prev = cur
         return rows, components, rows_dnf, components_dnf
 
-    def load_xml(self, filename):
+    def load_xml(self, filename, ref='References'):
         file = self.expect_out_file(filename)
         rows = []
         components = []
-        line_re = re.compile(r'\s+<group.*References="([^"]+)"')
+        line_re = re.compile(r'\s+<group.*' + ref + '="([^"]+)"')
         with open(file) as f:
             for line in f:
                 m = line_re.match(line)
@@ -162,8 +181,8 @@ class TestContext(object):
                     components.extend(m.group(1).split(' '))
         return rows, components
 
-    def load_xlsx(self, filename):
-        """ Assumes the components are in column D of sheet1 """
+    def load_xlsx(self, filename, column=4, heads=False):
+        """ Assumes the components are in sheet1 """
         file = self.expect_out_file(filename)
         subprocess.run(['unzip', file, '-d', self.get_out_path('desc')])
         # Some XMLs are stored with 0600 preventing them to be read by next CI/CD stage
@@ -173,9 +192,25 @@ class TestContext(object):
         comp_strs = []
         with open(worksheet) as f:
             xml = f.read()
-        re_dcol = re.compile(r'<c r="D\d+"[^>]+><v>(\d+)</v></c>')
+        # Cell matching string
+        col_char = chr(ord('A') + column - 1)
+        re_dcol = re.compile(r'<c r="' + col_char + r'\d+"[^>]+><v>(\d+)</v></c>')
+        # We should find row #1
+        row_n = 1
+        # Search the rows
         for entry in re.finditer(r'<row r="(\d+)"[^>]+>(.*?)<\/row>', xml):
             row = entry.group(0)
+            if heads:
+                # If we are looking for the headings extract them and exit
+                rows.append(row)
+                for col in re.finditer(r'<c r="\w\d+"[^>]+><v>(\d+)</v></c>', row):
+                    comp_strs.append(col.group(1))
+                break
+            # Check if we reached the schematic info section
+            if int(entry.group(1)) > row_n:
+                break
+            row_n += 1
+            # Extract the column we are looking for
             m = re_dcol.search(row)
             if m:
                 rows.append(row)
@@ -184,8 +219,9 @@ class TestContext(object):
             else:
                 break
         # Remove the row 1
-        rows.pop(0)
-        comp_strs.pop(0)
+        if not heads:
+            rows.pop(0)
+            comp_strs.pop(0)
         # Translate the indexes to strings
         # 1) Get the list of strings
         strings = self.get_out_path(os.path.join('desc', 'xl', 'sharedStrings.xml'))
@@ -197,7 +233,10 @@ class TestContext(object):
         for idx in comp_strs:
             cell = strs[int(idx)]
             # logging.debug(str(idx)+' -> '+cell)
-            components.extend(cell.split(' '))
+            if heads:
+                components.append(cell)
+            else:
+                components.extend(cell.split(' '))
         return rows, components
 
     def dont_expect_out_file(self, filename):
