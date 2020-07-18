@@ -13,6 +13,9 @@ This document explains the additions to the original KiBoM code.
 
 - [Optimize the regex used to match component values](Fork_PRs/Optimize_units_regex.md) (#110)
 
+### Small fixes
+
+- [Fix extra parameter in getAltRefs](Fork_PRs/Fix_getAltRefs) (#119)
 
 ## Already merged
 
