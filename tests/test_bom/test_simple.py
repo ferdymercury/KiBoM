@@ -188,6 +188,7 @@ def test_variant_t1_1():
     assert 'R2' in components
     assert 'R3' not in components
     assert 'R4' not in components
+    assert ctx.search_out('WARNING') is None
     check_dnc(rows, 'R2')
     ctx.clean_up()
 
@@ -206,6 +207,7 @@ def test_variant_t1_2():
     assert 'R2' not in components
     assert 'R3' in components
     assert 'R4' not in components
+    assert ctx.search_out('WARNING') is None
     ctx.clean_up()
 
 
@@ -223,6 +225,7 @@ def test_variant_t1_3():
     assert 'R2' not in components
     assert 'R3' not in components
     assert 'R4' in components
+    assert ctx.search_out('WARNING') is None
     ctx.clean_up()
 
 
@@ -240,6 +243,7 @@ def test_variant_t1_4():
     assert 'R3' in components
     assert 'R4' not in components
     check_dnc(rows, 'R2')
+    assert ctx.search_out('WARNING') is None
     ctx.clean_up()
 
 
@@ -258,6 +262,7 @@ def test_variant_t1_5():
     assert 'R2' not in components
     assert 'R3' not in components
     assert 'R4' in components
+    assert ctx.search_out('WARNING') is None
     ctx.clean_up()
 
 
