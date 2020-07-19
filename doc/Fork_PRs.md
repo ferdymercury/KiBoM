@@ -13,6 +13,7 @@ This document explains the additions to the original KiBoM code.
 ### Small additions
 
 - [Optimize the regex used to match component values](Fork_PRs/Optimize_units_regex.md) (#110)
+- [Do not report warnings about conflicts in `Config` field](Fork_PRs/No_config_conflicts.md) (#122)
 
 ### Small fixes
 
