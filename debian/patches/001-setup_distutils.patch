@@ -1,0 +1,28 @@
+--- a/setup.py
++++ b/setup.py
+@@ -1,6 +1,6 @@
+ # -*- coding: utf-8 -*-
+ 
+-import setuptools
++from distutils.core import setup
+ 
+ import os
+ import sys
+@@ -12,7 +12,7 @@
+ long_description = "KiBoM is a configurable BOM (Bill of Materials) generation tool for KiCad EDA. Written in Python, it can be used directly with KiCad software without the need for any external libraries or plugins. KiBoM intelligently groups components based on multiple factors, and can generate BoM files in multiple output formats. For futher information see the KiBom project page"
+ 
+ 
+-setuptools.setup(
++setup(
+     name="kibom",
+ 
+     version=KIBOM_VERSION,
+@@ -31,7 +31,7 @@
+ 
+     license="MIT",
+ 
+-    packages=setuptools.find_packages(),
++    packages=['kibom'],
+  
+     scripts=['KiBOM_CLI.py'],
+ 
