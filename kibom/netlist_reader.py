@@ -92,7 +92,7 @@ class xmlElement():
             if attribute != "":
                 try:
                     if attrmatch != "":
-                        if self.attributes[attribute] == attrmatch:
+                        if self.attributes[attribute].lower() == attrmatch.lower():
                             return self.chars
                     else:
                         return self.attributes[attribute]
