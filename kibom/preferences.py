@@ -61,7 +61,7 @@ class BomPref:
         self.groupConnectors = True  # Group connectors and ignore component value
         self.useRegex = True  # Test various columns with regex
 
-        self.digikey_link = False  # Columns to link to Digi-Key
+        self.digikey_link = ''  # Columns to link to Digi-Key
         self.boards = 1  # Quantity of boards to be made
         self.mergeBlankFields = True  # Blanks fields will be merged when possible
         self.hideHeaders = False
@@ -69,8 +69,8 @@ class BomPref:
         self.configField = "Config"  # Default field used for part fitting config
         self.pcbConfig = ["default"]
 
-        self.backup = "%O.tmp"
-        self.as_link = False  # (#112)
+        self.backup = "%O.tmp"  # If no .INI file is provided we create *.tmp back-ups
+        self.as_link = ''  # (#112)
 
         self.separatorCSV = None
         self.outputFileName = "%O_bom_%v%V"
@@ -111,19 +111,31 @@ class BomPref:
             ["d", "diode", "d_small"]
         ]
 
-        # Nothing to join by default (#81)
+        # Nothing to join by default
         self.join = []
 
     # Check an option within the SECTION_GENERAL group
-    def checkOption(self, parser, opt, default=False):
-        if parser.has_option(self.SECTION_GENERAL, opt):
-            return parser.get(self.SECTION_GENERAL, opt).lower() in ["1", "true", "yes"]
+    def checkOption(self, opt, default=False):
+        if self.parser.has_option(self.SECTION_GENERAL, opt):
+            val = self.parser.get(self.SECTION_GENERAL, opt).lower()
+            if val in ["1", "true", "yes"]:
+                return True
+            if val in ["0", "false", "no"]:
+                return False
+            debug.warning("Option `{}` should be boolean, but `{}` was found, assuming False.".format(opt, val))
+            return False
         else:
             return default
 
-    def checkInt(self, parser, opt, default=False):
-        if parser.has_option(self.SECTION_GENERAL, opt):
-            return int(parser.get(self.SECTION_GENERAL, opt).lower())
+    def checkInt(self, opt, default=False):
+        if self.parser.has_option(self.SECTION_GENERAL, opt):
+            return int(self.parser.get(self.SECTION_GENERAL, opt))
+        else:
+            return default
+
+    def checkStr(self, opt, default=False):
+        if self.parser.has_option(self.SECTION_GENERAL, opt):
+            return self.parser.get(self.SECTION_GENERAL, opt)
         else:
             return default
 
@@ -135,54 +147,30 @@ class BomPref:
             return
 
         cf = ConfigParser.RawConfigParser(allow_no_value=True)
+        self.parser = cf
         cf.optionxform = str
 
         cf.read(file)
 
         # Read general options
         if self.SECTION_GENERAL in cf.sections():
-            self.ignoreDNF = self.checkOption(cf, self.OPT_IGNORE_DNF, default=True)
-            self.generateDNF = self.checkOption(cf, self.OPT_GENERATE_DNF, default=True)
-            self.useAlt = self.checkOption(cf, self.OPT_USE_ALT, default=False)
-            self.numberRows = self.checkOption(cf, self.OPT_NUMBER_ROWS, default=True)
-            self.groupConnectors = self.checkOption(cf, self.OPT_GROUP_CONN, default=True)
-            self.useRegex = self.checkOption(cf, self.OPT_USE_REGEX, default=True)
-            self.mergeBlankFields = self.checkOption(cf, self.OPT_MERGE_BLANK, default=True)
-            self.outputFileName = cf.get(self.SECTION_GENERAL, self.OPT_OUTPUT_FILE_NAME,
-                                         fallback=self.outputFileName)  # (#121)
-            self.variantFileNameFormat = cf.get(self.SECTION_GENERAL, self.OPT_VARIANT_FILE_NAME_FORMAT,
-                                                fallback=self.variantFileNameFormat)  # (#121)
-
-        if cf.has_option(self.SECTION_GENERAL, self.OPT_CONFIG_FIELD):
-            self.configField = cf.get(self.SECTION_GENERAL, self.OPT_CONFIG_FIELD).lower()
-
-        if cf.has_option(self.SECTION_GENERAL, self.OPT_DEFAULT_BOARDS):
-            self.boards = self.checkInt(cf, self.OPT_DEFAULT_BOARDS, default=None)
-
-        if cf.has_option(self.SECTION_GENERAL, self.OPT_DEFAULT_PCBCONFIG):
-            self.pcbConfig = cf.get(self.SECTION_GENERAL, self.OPT_DEFAULT_PCBCONFIG).strip().split(",")
-
-        if cf.has_option(self.SECTION_GENERAL, self.OPT_BACKUP):
-            self.backup = cf.get(self.SECTION_GENERAL, self.OPT_BACKUP)
-        else:
-            self.backup = False
-
-        # (#112)
-        if cf.has_option(self.SECTION_GENERAL, self.OPT_DATASHEET_AS_LINK):
-            self.as_link = cf.get(self.SECTION_GENERAL, self.OPT_DATASHEET_AS_LINK)
-        else:
-            self.as_link = False
-
-        if cf.has_option(self.SECTION_GENERAL, self.OPT_HIDE_HEADERS):
-            self.hideHeaders = cf.get(self.SECTION_GENERAL, self.OPT_HIDE_HEADERS) == '1'
-
-        if cf.has_option(self.SECTION_GENERAL, self.OPT_HIDE_PCB_INFO):
-            self.hidePcbInfo = cf.get(self.SECTION_GENERAL, self.OPT_HIDE_PCB_INFO) == '1'
-
-        if cf.has_option(self.SECTION_GENERAL, self.OPT_DIGIKEY_LINK):
-            self.digikey_link = cf.get(self.SECTION_GENERAL, self.OPT_DIGIKEY_LINK)
-        else:
-            self.digikey_link = False
+            self.ignoreDNF = self.checkOption(self.OPT_IGNORE_DNF, default=True)
+            self.generateDNF = self.checkOption(self.OPT_GENERATE_DNF, default=True)
+            self.useAlt = self.checkOption(self.OPT_USE_ALT, default=False)
+            self.numberRows = self.checkOption(self.OPT_NUMBER_ROWS, default=True)
+            self.groupConnectors = self.checkOption(self.OPT_GROUP_CONN, default=True)
+            self.useRegex = self.checkOption(self.OPT_USE_REGEX, default=True)
+            self.mergeBlankFields = self.checkOption(self.OPT_MERGE_BLANK, default=True)
+            self.outputFileName = self.checkStr(self.OPT_OUTPUT_FILE_NAME, default=self.outputFileName)
+            self.variantFileNameFormat = self.checkStr(self.OPT_VARIANT_FILE_NAME_FORMAT, default=self.variantFileNameFormat)
+            self.backup = self.checkStr(self.OPT_BACKUP, default='')
+            self.as_link = self.checkStr(self.OPT_DATASHEET_AS_LINK, default='')
+            self.digikey_link = self.checkStr(self.OPT_DIGIKEY_LINK, default='')
+            self.hideHeaders = self.checkOption(self.OPT_HIDE_HEADERS, default=False)
+            self.hidePcbInfo = self.checkOption(self.OPT_HIDE_PCB_INFO, default=False)
+            self.configField = self.checkStr(self.OPT_CONFIG_FIELD, default=self.configField).lower()
+            self.boards = self.checkInt(self.OPT_DEFAULT_BOARDS, default=1)
+            self.pcbConfig = self.checkStr(self.OPT_DEFAULT_PCBCONFIG, default=self.pcbConfig[0]).strip().split(",")
 
         # Read out grouping colums
         if self.SECTION_GROUPING_FIELDS in cf.sections():
@@ -200,7 +188,7 @@ class BomPref:
         if self.SECTION_ALIASES in cf.sections():
             self.aliases = [re.split('[ \t]+', a) for a in cf.options(self.SECTION_ALIASES)]
 
-        # Read out join rules (#81)
+        # Read out join rules
         if self.SECTION_JOIN in cf.sections():
             self.join = [a.split('\t') for a in cf.options(self.SECTION_JOIN)]
 
@@ -223,7 +211,7 @@ class BomPref:
                 if len(pair) == 2:
                     self.colRename[pair[0].lower()] = pair[1]
 
-    # Add an option to the SECTION_GENRAL group
+    # Add an option to the SECTION_GENERAL group
     def addOption(self, parser, opt, value, comment=None):
         if comment:
             if not comment.startswith(";"):
@@ -268,13 +256,10 @@ class BomPref:
         cf.set(self.SECTION_GENERAL, self.OPT_DEFAULT_BOARDS, self.boards)
 
         cf.set(self.SECTION_GENERAL, '; Default PCB variant if none given on CLI with -r')
-        cf.set(self.SECTION_GENERAL, self.OPT_DEFAULT_PCBCONFIG, self.pcbConfig)
+        cf.set(self.SECTION_GENERAL, self.OPT_DEFAULT_PCBCONFIG, ','.join(self.pcbConfig))
 
-        cf.set(self.SECTION_GENERAL, '; Whether to hide headers from output file')
-        cf.set(self.SECTION_GENERAL, self.OPT_HIDE_HEADERS, self.hideHeaders)
-
-        cf.set(self.SECTION_GENERAL, '; Whether to hide PCB info from output file')
-        cf.set(self.SECTION_GENERAL, self.OPT_HIDE_PCB_INFO, self.hidePcbInfo)
+        self.addOption(cf, self.OPT_HIDE_HEADERS, self.hideHeaders, comment="If '{opt}' option is set to 1, column headers aren't included in the output file".format(opt=self.OPT_HIDE_HEADERS))
+        self.addOption(cf, self.OPT_HIDE_PCB_INFO, self.hidePcbInfo, comment="If '{opt}' option is set to 1, PCB info isn't included in the output file".format(opt=self.OPT_HIDE_PCB_INFO))
 
         cf.set(self.SECTION_GENERAL, '; Interpret as a Digikey P/N and link the following field')
         cf.set(self.SECTION_GENERAL, self.OPT_DIGIKEY_LINK, self.digikey_link)

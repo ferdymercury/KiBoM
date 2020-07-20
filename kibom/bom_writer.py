@@ -47,7 +47,7 @@ def WriteBoM(filename, groups, net, headings=columns.ColumnList._COLUMNS_DEFAULT
         filename += ".csv"
 
     # Make a temporary copy of the output file
-    if prefs.backup is not False:
+    if prefs.backup:
         TmpFileCopy(filename, prefs.backup)
 
     ext = filename.split('.')[-1].lower()
