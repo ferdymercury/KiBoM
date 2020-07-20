@@ -13,9 +13,10 @@ This document explains the additions to the original KiBoM code.
 
 - [Do not report warnings about conflicts in `Config` field](Fork_PRs/No_config_conflicts.md) (#122)
 
-### Small fixes
+### Important fixes
 
-- [Tolerate no `output_file_name` and/or `variant_file_name_format`](Fork_PRs/Tolerate_no_outname.md) (#121)
+- [Fix problems when using lowercase names in COLUMN_ORDER](Fork_PRs/Fix_column_case.md) (Issue #123)
+
 
 ## Already merged
 
@@ -44,6 +45,7 @@ This document explains the additions to the original KiBoM code.
 - [+VARIANT mechanism not working as expected](Fork_PRs/Variant_plus.md)
 - [Skip the DNF HTML list if it will contain 0 rows](Fork_PRs/Skip_empty_DNF_table.md)
 - [Fix extra parameter in getAltRefs](Fork_PRs/Fix_getAltRefs.md)
+- [Tolerate no `output_file_name` and/or `variant_file_name_format`](Fork_PRs/Tolerate_no_outname.md)
 
 
 ## Not sent to upstream
