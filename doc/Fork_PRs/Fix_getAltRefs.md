@@ -2,7 +2,7 @@
 
 - **Pull-request**: [#119](https://github.com/SchrodingersGat/KiBoM/pull/119)
 - **Opened**: 2020-07-18
-- **Status**: Open
+- **Status**: Merged (2020-07-19)
 - **Branch**: fix_alt_wrap_remaining
 
 ## Description

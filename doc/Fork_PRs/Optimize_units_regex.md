@@ -2,7 +2,7 @@
 
 - **Pull-request**: [#110](https://github.com/SchrodingersGat/KiBoM/pull/110)
 - **Opened**: 2020-07-16 (updated 2020-07-18)
-- **Status**: Open
+- **Status**: Merged (2020-07-19)
 - **Branch**: optimize_units_regex
 
 ## Description

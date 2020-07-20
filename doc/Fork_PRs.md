@@ -6,18 +6,15 @@ This document explains the additions to the original KiBoM code.
 
 ### Interesting additions
 
-- [Smarter R, L and C sort](Fork_PRs/Smart_sort_for_RLC.md) (#82)
 - [Links to datasheet in a configurable column](Fork_PRs/Datasheet_as_link.md) (#112)
 - [Add a mechanism to rename columns](Fork_PRs/Column_Rename.md) (#120)
 
 ### Small additions
 
-- [Optimize the regex used to match component values](Fork_PRs/Optimize_units_regex.md) (#110)
 - [Do not report warnings about conflicts in `Config` field](Fork_PRs/No_config_conflicts.md) (#122)
 
 ### Small fixes
 
-- [Fix extra parameter in getAltRefs](Fork_PRs/Fix_getAltRefs) (#119)
 - [Tolerate no `output_file_name` and/or `variant_file_name_format`](Fork_PRs/Tolerate_no_outname.md) (#121)
 
 ## Already merged
@@ -29,6 +26,7 @@ This document explains the additions to the original KiBoM code.
 - [Join fields to make the BoM more compact](Fork_PRs/Join_fields.md)
 - [Links to Digi-Key in a configurable column](Fork_PRs/Link_to_digikey.md)
 - [Command line compatibility with older versions](Fork_PRs/CLI_compatibility.md)
+- [Smarter R, L and C sort](Fork_PRs/Smart_sort_for_RLC.md)
 
 ### Small additions
 
@@ -36,6 +34,7 @@ This document explains the additions to the original KiBoM code.
 - [Use "M" for "mega" and "m" for "milli"](Fork_PRs/Mega_prefix.md)
 - [Avoid destroying the current locale's decimal point](Fork_PRs/Use_locale_decimal_point.md)
 - [Add support for spaces between a value an its unit](Fork_PRs/Space_before_unit.md)
+- [Optimize the regex used to match component values](Fork_PRs/Optimize_units_regex.md)
 
 ### Small fixes
 
@@ -44,6 +43,7 @@ This document explains the additions to the original KiBoM code.
 - [Avoid data files marked as executables](Fork_PRs/No_executable_data.md)
 - [+VARIANT mechanism not working as expected](Fork_PRs/Variant_plus.md)
 - [Skip the DNF HTML list if it will contain 0 rows](Fork_PRs/Skip_empty_DNF_table.md)
+- [Fix extra parameter in getAltRefs](Fork_PRs/Fix_getAltRefs.md)
 
 
 ## Not sent to upstream
