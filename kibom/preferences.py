@@ -49,8 +49,8 @@ class BomPref:
     def __init__(self):
         # List of headings to ignore in BoM generation
         self.ignore = [
-            ColumnList.COL_PART_LIB.lower(),  # (#120)
-            ColumnList.COL_FP_LIB.lower(),
+            ColumnList.COL_PART_LIB_L,  # (#120)
+            ColumnList.COL_FP_LIB_L,
         ]
 
         self.corder = ColumnList._COLUMNS_DEFAULT
@@ -154,7 +154,7 @@ class BomPref:
                                                 fallback=self.variantFileNameFormat)  # (#121)
 
         if cf.has_option(self.SECTION_GENERAL, self.OPT_CONFIG_FIELD):
-            self.configField = cf.get(self.SECTION_GENERAL, self.OPT_CONFIG_FIELD)
+            self.configField = cf.get(self.SECTION_GENERAL, self.OPT_CONFIG_FIELD).lower()
 
         if cf.has_option(self.SECTION_GENERAL, self.OPT_DEFAULT_BOARDS):
             self.boards = self.checkInt(cf, self.OPT_DEFAULT_BOARDS, default=None)
@@ -186,7 +186,7 @@ class BomPref:
 
         # Read out grouping colums
         if self.SECTION_GROUPING_FIELDS in cf.sections():
-            self.groups = [i for i in cf.options(self.SECTION_GROUPING_FIELDS)]
+            self.groups = [i.lower() for i in cf.options(self.SECTION_GROUPING_FIELDS)]
 
         # Read out ignored-rows (#120)
         if self.SECTION_IGNORE in cf.sections():

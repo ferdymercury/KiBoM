@@ -11,12 +11,13 @@ BG_EMPTY = "#FF8080"
 
 def bgColor(col):
     """ Return a background color for a given column title """
-    
+
+    col = col.lower()
     # Auto-generated columns
-    if col in ColumnList._COLUMNS_GEN:
+    if col in ColumnList._COLUMNS_GEN_L:
         return BG_GEN
     # KiCad protected columns
-    elif col in ColumnList._COLUMNS_PROTECTED:
+    elif col in ColumnList._COLUMNS_PROTECTED_L:
         return BG_KICAD
     # Additional user columns
     else:
@@ -133,7 +134,7 @@ def WriteHTML(filename, groups, net, headings, head_names, prefs):  # (#120)
 
                 # Link this column to the datasheet? (#112)
                 if link_datasheet and headings[n] == link_datasheet:
-                    r = '<a href="' + group.getField(ColumnList.COL_DATASHEET) + '">' + r + '</a>'
+                    r = '<a href="' + group.getField(ColumnList.COL_DATASHEET_L) + '">' + r + '</a>'
 
                 if (len(r) == 0) or (r.strip() == "~"):
                     bg = BG_EMPTY
@@ -181,7 +182,7 @@ def WriteHTML(filename, groups, net, headings, head_names, prefs):  # (#120)
 
                     # Link this column to the datasheet? (#112)
                     if link_datasheet and headings[n] == link_datasheet:
-                        r = '<a href="' + group.getField(ColumnList.COL_DATASHEET) + '">' + r + '</a>'
+                        r = '<a href="' + group.getField(ColumnList.COL_DATASHEET_L) + '">' + r + '</a>'
 
                     if link_digikey and headings[n] in link_digikey:
                         r = '<a href="http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=' + r + '">' + r + '</a>'

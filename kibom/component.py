@@ -122,11 +122,11 @@ class Component():
 
         for c in self.prefs.groups:
             # Perform special matches
-            if c.lower() == ColumnList.COL_VALUE.lower():
+            if c.lower() == ColumnList.COL_VALUE_L:
                 if not self.compareValue(other):
                     return False
             # Match part name
-            elif c.lower() == ColumnList.COL_PART.lower():
+            elif c.lower() == ColumnList.COL_PART_L:
                 if not self.comparePartName(other):
                     return False
 
@@ -217,7 +217,7 @@ class Component():
                 return value
         return self.element.get("value")
 
-    def getField(self, name, ignoreCase=True, libraryToo=True):
+    def getField(self, name):
         """Return the value of a field named name. The component is first
         checked for the field, and then the components library part is checked
         for the field. If the field doesn't exist in either, an empty string is
@@ -225,30 +225,29 @@ class Component():
 
         Keywords:
         name -- The name of the field to return the value for
-        libraryToo --   look in the libpart's fields for the same name if not found
-                        in component itself
         """
 
         fp = self.getFootprint().split(":")
 
-        if name.lower() == ColumnList.COL_REFERENCE.lower():
+        name = name.lower()
+        if name == ColumnList.COL_REFERENCE_L:
             return self.getRef().strip()
 
-        elif name.lower() == ColumnList.COL_DESCRIPTION.lower():
+        elif name == ColumnList.COL_DESCRIPTION_L:
             return self.getDescription().strip()
 
-        elif name.lower() == ColumnList.COL_DATASHEET.lower():
+        elif name == ColumnList.COL_DATASHEET_L:
             return self.getDatasheet().strip()
 
         # Footprint library is first element
-        elif name.lower() == ColumnList.COL_FP_LIB.lower():
+        elif name == ColumnList.COL_FP_LIB_L:
             if len(fp) > 1:
                 return fp[0].strip()
             else:
                 # Explicit empty return
                 return ""
 
-        elif name.lower() == ColumnList.COL_FP.lower():
+        elif name == ColumnList.COL_FP_L:
             if len(fp) > 1:
                 return fp[1].strip()
             elif len(fp) == 1:
@@ -256,21 +255,22 @@ class Component():
             else:
                 return ""
 
-        elif name.lower() == ColumnList.COL_VALUE.lower():
+        elif name == ColumnList.COL_VALUE_L:
             return self.getValue().strip()
 
-        elif name.lower() == ColumnList.COL_PART.lower():
+        elif name == ColumnList.COL_PART_L:
             return self.getPartName().strip()
 
-        elif name.lower() == ColumnList.COL_PART_LIB.lower():
+        elif name == ColumnList.COL_PART_LIB_L:
             return self.getLibName().strip()
 
         # Other fields (case insensitive)
         for f in self.getFieldNames():
-            if f.lower() == name.lower():
+            if f == name:
                 field = self.element.get("field", "name", f)
 
-                if field == "" and libraryToo:
+                if field == "":
+                    # Try in the library
                     field = self.libpart.getField(f)
 
                 return field.strip()
@@ -291,7 +291,7 @@ class Component():
         
         if fields:
             for f in fields.getChildren():
-                fieldNames.append(f.get('field', 'name'))
+                fieldNames.append(f.get('field', 'name').lower())
         
         return fieldNames
 
@@ -476,7 +476,8 @@ class ComponentGroup():
     """
     def __init__(self, prefs=None):
         self.components = []
-        self.fields = dict.fromkeys(ColumnList._COLUMNS_DEFAULT)  # Columns loaded from KiCad
+        # Columns loaded from KiCad
+        self.fields = {c.lower(): None for c in ColumnList._COLUMNS_DEFAULT}
 
         if not prefs:
             prefs = BomPref()
@@ -485,13 +486,11 @@ class ComponentGroup():
 
     def getField(self, field):
 
-        if field not in self.fields.keys():
+        field = field.lower()
+        if field not in self.fields or not self.fields[field]:
             return ""
         
-        if not self.fields[field]:
-            return ""
-        
-        return u''.join((self.fields[field]))
+        return u''.join(self.fields[field])
 
     def getCount(self):
         return len(self.components)
@@ -552,16 +551,17 @@ class ComponentGroup():
     # Update a given field, based on some rules and such
     def updateField(self, field, fieldData):
 
-        # Protected fields cannot be overwritten
-        if field in ColumnList._COLUMNS_PROTECTED:
-            return
-
         if field is None or field == "":
             return
         elif fieldData == "" or fieldData is None:
             return
 
-        if (field not in self.fields.keys()) or (self.fields[field] is None) or (self.fields[field] == ""):
+        field = field.lower()
+        # Protected fields cannot be overwritten
+        if field in ColumnList._COLUMNS_PROTECTED_L:
+            return
+
+        if (field not in self.fields) or (self.fields[field] is None) or (self.fields[field] == ""):
             self.fields[field] = fieldData
         elif fieldData.lower() in self.fields[field].lower():
             return
@@ -579,42 +579,42 @@ class ComponentGroup():
             for f in c.getFieldNames():
 
                 # These columns are handled explicitly below
-                if f in ColumnList._COLUMNS_PROTECTED:
+                if f in ColumnList._COLUMNS_PROTECTED_L:
                     continue
 
                 self.updateField(f, c.getField(f))
 
         # Update 'global' fields
         if usealt:
-            self.fields[ColumnList.COL_REFERENCE] = self.getAltRefs()
+            self.fields[ColumnList.COL_REFERENCE_L] = self.getAltRefs()
         else:
-            self.fields[ColumnList.COL_REFERENCE] = self.getRefs()
+            self.fields[ColumnList.COL_REFERENCE_L] = self.getRefs()
 
         q = self.getCount()
-        self.fields[ColumnList.COL_GRP_QUANTITY] = "{n}{dnf}{dnc}".format(
+        self.fields[ColumnList.COL_GRP_QUANTITY_L] = "{n}{dnf}{dnc}".format(
             n=q,
             dnf=" (DNF)" if not self.isFitted() else "",
             dnc=" (DNC)" if self.isFixed() else "")
 
-        self.fields[ColumnList.COL_GRP_BUILD_QUANTITY] = str(q * self.prefs.boards) if self.isFitted() else "0"
-        self.fields[ColumnList.COL_VALUE] = self.components[0].getValue()
-        self.fields[ColumnList.COL_PART] = self.components[0].getPartName()
-        self.fields[ColumnList.COL_PART_LIB] = self.components[0].getLibName()
-        self.fields[ColumnList.COL_DESCRIPTION] = self.components[0].getDescription()
-        self.fields[ColumnList.COL_DATASHEET] = self.components[0].getDatasheet()
+        self.fields[ColumnList.COL_GRP_BUILD_QUANTITY_L] = str(q * self.prefs.boards) if self.isFitted() else "0"
+        self.fields[ColumnList.COL_VALUE_L] = self.components[0].getValue()
+        self.fields[ColumnList.COL_PART_L] = self.components[0].getPartName()
+        self.fields[ColumnList.COL_PART_LIB_L] = self.components[0].getLibName()
+        self.fields[ColumnList.COL_DESCRIPTION_L] = self.components[0].getDescription()
+        self.fields[ColumnList.COL_DATASHEET_L] = self.components[0].getDatasheet()
 
         # Footprint field requires special attention
         fp = self.components[0].getFootprint().split(":")
 
         if len(fp) >= 2:
-            self.fields[ColumnList.COL_FP_LIB] = fp[0]
-            self.fields[ColumnList.COL_FP] = fp[1]
+            self.fields[ColumnList.COL_FP_LIB_L] = fp[0]
+            self.fields[ColumnList.COL_FP_L] = fp[1]
         elif len(fp) == 1:
-            self.fields[ColumnList.COL_FP_LIB] = ""
-            self.fields[ColumnList.COL_FP] = fp[0]
+            self.fields[ColumnList.COL_FP_LIB_L] = ""
+            self.fields[ColumnList.COL_FP_L] = fp[0]
         else:
-            self.fields[ColumnList.COL_FP_LIB] = ""
-            self.fields[ColumnList.COL_FP] = ""
+            self.fields[ColumnList.COL_FP_LIB_L] = ""
+            self.fields[ColumnList.COL_FP_L] = ""
 
     # Return a dict of the KiCad data based on the supplied columns
     # NOW WITH UNICODE SUPPORT!
