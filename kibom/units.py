@@ -31,7 +31,7 @@ UNIT_L = ["henry", "h"]
 
 UNIT_ALL = UNIT_R + UNIT_C + UNIT_L
 
-# Compiled regex to match the values (#110)
+# Compiled regex to match the values
 match = None
 # Current locale decimal point value
 decimal_point = None
@@ -112,12 +112,12 @@ def compMatch(component):
     # Remove any commas
     component = component.strip().replace(",", "")
 
-    # Get the compiled regex (#110)
+    # Get the compiled regex
     global match
     if not match:
         match = re.compile(matchString(), flags=re.IGNORECASE)
 
-    # Not lower, but ignore case (#110)
+    # Not lower, but ignore case
     result = match.search(component)
 
     if not result:
@@ -146,7 +146,7 @@ def compMatch(component):
     except:
         return None
 
-    # Return all the data, let the caller join it (#82)
+    # Return all the data, let the caller join it
     return (val, getPrefix(prefix), getUnit(units))
 
 
@@ -174,7 +174,7 @@ def compareValues(c1, c2):
     if not r1 or not r2:
         return False
 
-    # Join the data to compare (#82)
+    # Join the data to compare
     (v1, p1, u1) = r1
     (v2, p2, u2) = r2
 

@@ -201,7 +201,7 @@ class Component():
     def getValue(self):
         return self.element.get("value")
 
-    # Try to better sort R, L and C components (#82)
+    # Try to better sort R, L and C components
     def getValueSort(self):
         pref = self.getPrefix()
         if pref in 'RLC' or pref == 'RV':
