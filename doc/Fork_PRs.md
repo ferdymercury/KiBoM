@@ -16,7 +16,7 @@ This document explains the additions to the original KiBoM code.
 ### Important fixes
 
 - [Fix problems when using lowercase names in COLUMN_ORDER](Fork_PRs/Fix_column_case.md) (Issue #123)
-
+- [Fix for various configuration details](Fork_PRs/Fix_various_ini_details.md) (on issue #67)
 
 ## Already merged
 
