@@ -5,6 +5,7 @@ import logging
 import subprocess
 import re
 import pytest
+import csv
 from glob import glob
 from pty import openpty
 
@@ -99,26 +100,21 @@ class TestContext(object):
         return file
 
     def load_csv_header(self, filename):
-        file = self.expect_out_file(filename)
-        with open(file) as f:
-            head = f.readline()
-        return head.strip().split(',')
+        with open(self.expect_out_file(filename)) as csvfile:
+            reader = csv.reader(csvfile)
+            return next(reader)
 
     def load_csv(self, filename, column=3):
-        file = self.expect_out_file(filename)
         rows = []
-        with open(file) as f:
-            f.readline()  # Skip header
-            for line in f:
-                line = line.rstrip()
-                if not line:
-                    break
-                rows.append(line)
         components = []
-        for r in rows:
-            fields = r.split(',')
-            comps = fields[column].split(' ')
-            components.extend(comps)
+        with open(self.expect_out_file(filename)) as csvfile:
+            reader = csv.reader(csvfile)
+            next(reader)  # Skip header
+            for r in reader:
+                if not r:
+                    break
+                rows.append(','.join(r))
+                components.extend(r[column].split(' '))
         return rows, components
 
     def load_html_header(self, filename, column=4, split=True):

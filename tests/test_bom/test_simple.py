@@ -28,6 +28,7 @@ Simple tests
   - HTML
   - XML
   - XLSX
+- group_connectors = 1/0
 
 For debug information use:
 pytest-3 --log-cli-level debug
@@ -429,4 +430,26 @@ def test_column_rename_xlsx():
     assert components == ['Renglón', 'Referencias', 'Componente', 'Valor', 'Código Digi-Key', 'Cantidad por PCB']
     rows, components = ctx.load_xlsx(out, 2)
     check_kibom_test_netlist(rows, components, exclude=[], groups=3, comps=['C1', 'J1', 'J2', 'R1'])
+    ctx.clean_up()
+
+
+def test_group_connectors():
+    prj = 'connectors'
+    ext = 'csv'
+    ctx = context.TestContext('GroupConnectors', prj, ext)
+    ctx.run(no_config_file=True)
+    out = prj + '_bom_.' + ext
+    rows, components = ctx.load_csv(out)
+    check_kibom_test_netlist(rows, components, exclude=None, groups=2, comps=['J4', 'J1', 'J3', 'J2'])
+    ctx.clean_up()
+
+
+def test_no_group_connectors():
+    prj = 'connectors'
+    ext = 'csv'
+    ctx = context.TestContext('NoGroupConnectors', prj, ext, 'no_group_connectors')
+    ctx.run()
+    out = prj + '_bom_.' + ext
+    rows, components = ctx.load_csv(out)
+    check_kibom_test_netlist(rows, components, exclude=None, groups=4, comps=['J4', 'J1', 'J3', 'J2'])
     ctx.clean_up()
