@@ -6,6 +6,7 @@ import subprocess
 import re
 import pytest
 import csv
+import sys
 from glob import glob
 from pty import openpty
 
@@ -17,6 +18,22 @@ REF_DIR = 'tests/reference'
 
 MODE_SCH = 1
 MODE_PCB = 0
+
+
+if sys.version_info.major >= 3:
+    def os_open(name, flags, mode):
+        return os.open(name, flags, mode=mode)
+
+    def os_makedirs(dir):
+        os.makedirs(dir, exist_ok=True)
+else:
+    # Ancient python compatibility
+    def os_open(name, flags, mode):
+        return os.open(name, flags, mode)
+
+    def os_makedirs(dir):
+        if not os.path.isdir(dir):
+            os.makedirs(dir)
 
 
 class TestContext(object):
@@ -67,7 +84,7 @@ class TestContext(object):
     def _set_up_output_dir(self, test_dir):
         if test_dir:
             self.output_dir = os.path.join(test_dir, self.test_name)
-            os.makedirs(self.output_dir, exist_ok=True)
+            os_makedirs(self.output_dir)
             self._del_dir_after = False
         else:
             # create a tmp dir
@@ -180,9 +197,9 @@ class TestContext(object):
     def load_xlsx(self, filename, column=4, heads=False):
         """ Assumes the components are in sheet1 """
         file = self.expect_out_file(filename)
-        subprocess.run(['unzip', file, '-d', self.get_out_path('desc')])
+        subprocess.call(['unzip', file, '-d', self.get_out_path('desc')])
         # Some XMLs are stored with 0600 preventing them to be read by next CI/CD stage
-        subprocess.run(['chmod', '-R', 'og+r', self.get_out_path('desc')])
+        subprocess.call(['chmod', '-R', 'og+r', self.get_out_path('desc')])
         worksheet = self.get_out_path(os.path.join('desc', 'xl', 'worksheets', 'sheet1.xml'))
         rows = []
         comp_strs = []
@@ -275,8 +292,8 @@ class TestContext(object):
             f_out = slave
         else:
             # Redirect stdout and stderr to files
-            f_out = os.open(out_filename, os.O_RDWR | os.O_CREAT, mode=0o664)
-            f_err = os.open(err_filename, os.O_RDWR | os.O_CREAT, mode=0o664)
+            f_out = os_open(out_filename, os.O_RDWR | os.O_CREAT, 0o664)
+            f_err = os_open(err_filename, os.O_RDWR | os.O_CREAT, 0o664)
         # Run the process
         if chdir_out:
             cwd = os.getcwd()
