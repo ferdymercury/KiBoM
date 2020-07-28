@@ -51,6 +51,7 @@ class BomPref:
         self.ignore = [
             ColumnList.COL_PART_LIB_L,  # (#120)
             ColumnList.COL_FP_LIB_L,
+            ColumnList.COL_SHEETPATH_L,
         ]
 
         self.corder = ColumnList._COLUMNS_DEFAULT
