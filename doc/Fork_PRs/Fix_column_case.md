@@ -2,6 +2,7 @@
 
 - **Issue**: [#123](https://github.com/SchrodingersGat/KiBoM/pull/123)
 - **Local PR**: [#10](https://github.com/INTI-CMNB/KiBoM/pull/10)
+- **Partial PR** [#128](https://github.com/SchrodingersGat/KiBoM/pull/128)
 - **Opened**: 2020-07-19
 - **Status**: Open
 - **Branch**: fix_column_case
