@@ -13,6 +13,10 @@ This document explains the additions to the original KiBoM code.
 
 - [Do not report warnings about conflicts in `Config` field](Fork_PRs/No_config_conflicts.md) (#122)
 
+### Small fixes
+
+- [Support for real 'micro' prefix and fix 'Ohm' symbol support](Fork_PRs/Fix_mu_and_ohm.md) (#135)
+
 ### Important fixes
 
 - [Fix problems when using lowercase names in COLUMN_ORDER](Fork_PRs/Fix_column_case.md) (Issue #123)
