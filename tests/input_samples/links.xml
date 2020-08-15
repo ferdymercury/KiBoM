@@ -20,7 +20,7 @@
   </design>
   <components>
     <comp ref="J1">
-      <value>Molex KK</value>
+      <value>Molex KK ñoño</value>
       <datasheet>https://www.molex.com/webdocs/datasheets/pdf/en-us//0022232021_PCB_HEADERS.pdf</datasheet>
       <fields>
         <field name="digikey#">900-0022232021-ND</field>
