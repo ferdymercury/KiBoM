@@ -18,9 +18,10 @@ lint:
 	flake8 . --count --statistics
 
 test_local: lint
-	rm -rf $(OUT_DIR)2
-	rm -f tests/input_samples/bom.ini
-	pytest --test_dir $(OUT_DIR)2
+#	No PyTest for Python 2 on bulleyes
+#	rm -rf $(OUT_DIR)2
+#	rm -f tests/input_samples/bom.ini
+#	pytest --test_dir $(OUT_DIR)2
 	rm -rf $(OUT_DIR)
 	rm -f tests/input_samples/bom.ini
 	$(PY_COV) erase
