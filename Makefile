@@ -18,9 +18,9 @@ lint:
 	flake8 . --count --statistics
 
 test_local: lint
-	rm -rf $(OUT_DIR)
+	rm -rf $(OUT_DIR)2
 	rm -f tests/input_samples/bom.ini
-	pytest --test_dir $(OUT_DIR)
+	pytest --test_dir $(OUT_DIR)2
 	rm -rf $(OUT_DIR)
 	rm -f tests/input_samples/bom.ini
 	$(PY_COV) erase
