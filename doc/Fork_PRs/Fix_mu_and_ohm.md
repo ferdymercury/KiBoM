@@ -3,7 +3,7 @@
 - **Pull-request**: [#135](https://github.com/SchrodingersGat/KiBoM/pull/135)
 - **Issue**: [#133](https://github.com/SchrodingersGat/KiBoM/pull/133)
              [#134](https://github.com/SchrodingersGat/KiBoM/pull/134)
-- **Opened**: 2020-08-15
+- **Opened**: Merged (2020-08-16)
 - **Status**: Open
 - **Branch**: fix_mu_and_ohm
 
