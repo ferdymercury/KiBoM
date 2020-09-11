@@ -6,11 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 ## [Unreleased]
+
+## [1.8.0-2] - 2020-09-11
 ### Added
 - 'Sheetpath' column (by @hkennyv)
 
 ### Fixed
 - Field names weren't really case-insensitive.
+- Variants logic when using more than one `+VARIANT`
 
 ## [1.8.0] - 2020-07-19
 ### Added
