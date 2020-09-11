@@ -30,3 +30,54 @@ def test_column_sensitive():
     logging.debug(heads)
     assert len(heads) == 4
     ctx.clean_up()
+
+
+def test_variants_issue_SG136_default():
+    prj = 'kibom-variant_2'
+    ext = 'csv'
+    ctx = context.TestContext('test_variants_issue_SG136_default', prj, ext)
+    extra = ['-r', 'default']
+    ctx.run(no_config_file=True, extra=extra)
+    out = prj + '_bom_A_(default).' + ext
+    rows, components = ctx.load_csv(out)
+    assert len(rows) == 1
+    assert len(components) == 2
+    assert 'R1' in components
+    assert 'R2' in components
+    assert 'C1' not in components
+    assert 'C2' not in components
+    ctx.clean_up()
+
+
+def test_variants_issue_SG136_production():
+    prj = 'kibom-variant_2'
+    ext = 'csv'
+    ctx = context.TestContext('test_variants_issue_SG136_default', prj, ext)
+    extra = ['-r', 'production']
+    ctx.run(no_config_file=True, extra=extra)
+    out = prj + '_bom_A_(production).' + ext
+    rows, components = ctx.load_csv(out)
+    assert len(rows) == 2
+    assert len(components) == 3
+    assert 'R1' in components
+    assert 'R2' in components
+    assert 'C1' not in components
+    assert 'C2' in components
+    ctx.clean_up()
+
+
+def test_variants_issue_SG136_test():
+    prj = 'kibom-variant_2'
+    ext = 'csv'
+    ctx = context.TestContext('test_variants_issue_SG136_test', prj, ext)
+    extra = ['-r', 'test']
+    ctx.run(no_config_file=True, extra=extra)
+    out = prj + '_bom_A_(test).' + ext
+    rows, components = ctx.load_csv(out)
+    assert len(rows) == 2
+    assert len(components) == 3
+    assert 'R1' in components
+    assert 'R2' not in components
+    assert 'C1' in components
+    assert 'C2' in components
+    ctx.clean_up()
