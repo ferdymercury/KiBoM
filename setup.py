@@ -14,31 +14,22 @@ long_description = "KiBoM is a configurable BOM (Bill of Materials) generation t
 
 setuptools.setup(
     name="kibom",
-
     version=KIBOM_VERSION,
-
     author="Oliver Walters",
-
     author_email="oliver.henry.walters@gmail.com",
-
     description="Bill of Materials generation tool for KiCad EDA",
-
     long_description=long_description,
-
     keywords="kicad, bom, electronics, schematic, bill of materials",
-
     url="https://github.com/INTI-CMNB/KiBoM/",
-
     license="MIT",
-
     packages=setuptools.find_packages(),
- 
     scripts=['KiBOM_CLI.py'],
-
+    entry_points={
+        'console_scripts': ['kibom = kibom.__main__:main']
+    },
     install_requires=[
         "xlsxwriter",
     ],
-
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Console',
@@ -46,9 +37,9 @@ setuptools.setup(
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Operating System :: POSIX :: Linux',
+        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Topic :: Scientific/Engineering :: Electronic Design Automation (EDA)',
     ],
-
-    python_requires=">=3.2"
+    python_requires=">=2.7"
 )
