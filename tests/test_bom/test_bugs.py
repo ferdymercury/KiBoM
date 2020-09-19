@@ -52,7 +52,7 @@ def test_variants_issue_SG136_default():
 def test_variants_issue_SG136_production():
     prj = 'kibom-variant_2'
     ext = 'csv'
-    ctx = context.TestContext('test_variants_issue_SG136_default', prj, ext)
+    ctx = context.TestContext('test_variants_issue_SG136_production', prj, ext)
     extra = ['-r', 'production']
     ctx.run(no_config_file=True, extra=extra)
     out = prj + '_bom_A_(production).' + ext
