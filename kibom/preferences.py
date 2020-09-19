@@ -45,6 +45,7 @@ class BomPref:
     OPT_HIDE_HEADERS = "hide_headers"
     OPT_HIDE_PCB_INFO = "hide_pcb_info"
     OPT_DATASHEET_AS_LINK = "datasheet_as_link"  # (#112)
+    OPT_REF_SEPARATOR = "ref_separator"
 
     def __init__(self):
         # List of headings to ignore in BoM generation
@@ -69,6 +70,7 @@ class BomPref:
         self.hidePcbInfo = False
         self.configField = "Config"  # Default field used for part fitting config
         self.pcbConfig = ["default"]
+        self.refSeparator = " "
 
         self.backup = "%O.tmp"  # If no .INI file is provided we create *.tmp back-ups
         self.as_link = ''  # (#112)
@@ -172,6 +174,7 @@ class BomPref:
             self.configField = self.checkStr(self.OPT_CONFIG_FIELD, default=self.configField).lower()
             self.boards = self.checkInt(self.OPT_DEFAULT_BOARDS, default=1)
             self.pcbConfig = self.checkStr(self.OPT_DEFAULT_PCBCONFIG, default=self.pcbConfig[0]).strip().split(",")
+            self.refSeparator = self.checkStr(self.OPT_REF_SEPARATOR, default=self.refSeparator).strip("\'\"")
 
         # Read out grouping colums
         if self.SECTION_GROUPING_FIELDS in cf.sections():
@@ -245,6 +248,9 @@ class BomPref:
 
         cf.set(self.SECTION_GENERAL, '; Field name used to determine if a particular part is to be fitted')
         cf.set(self.SECTION_GENERAL, self.OPT_CONFIG_FIELD, self.configField)
+
+        cf.set(self.SECTION_GENERAL, '; Character used to separate reference designators in output')
+        cf.set(self.SECTION_GENERAL, self.OPT_REF_SEPARATOR, self.refSeparator)
 
         cf.set(self.SECTION_GENERAL, '; Make a backup of the bom before generating the new one, using the following template')
         cf.set(self.SECTION_GENERAL, self.OPT_BACKUP, self.backup)
