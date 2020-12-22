@@ -173,8 +173,12 @@ class BomPref:
             self.hidePcbInfo = self.checkOption(self.OPT_HIDE_PCB_INFO, default=False)
             self.configField = self.checkStr(self.OPT_CONFIG_FIELD, default=self.configField).lower()
             self.boards = self.checkInt(self.OPT_DEFAULT_BOARDS, default=1)
-            self.pcbConfig = self.checkStr(self.OPT_DEFAULT_PCBCONFIG, default=self.pcbConfig[0]).strip().split(",")
             self.refSeparator = self.checkStr(self.OPT_REF_SEPARATOR, default=self.refSeparator).strip("\'\"")
+            self.pcbConfig = self.checkStr(self.OPT_DEFAULT_PCBCONFIG, default=self.pcbConfig[0])
+            # Variants clean-up by @eeintech
+            for char in [' ', '[', ']', '\'', '"']:
+                self.pcbConfig = self.pcbConfig.replace(char, '')
+            self.pcbConfig = self.pcbConfig.split(",")
 
         # Read out grouping colums
         if self.SECTION_GROUPING_FIELDS in cf.sections():
