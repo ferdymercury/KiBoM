@@ -42,6 +42,7 @@ class BomPref:
     OPT_DEFAULT_BOARDS = "number_boards"
     OPT_DEFAULT_PCBCONFIG = "board_variant"
     OPT_CONFIG_FIELD = "fit_field"
+    OPT_COMPLEX_VARIANT = "complex_variant"
     OPT_HIDE_HEADERS = "hide_headers"
     OPT_HIDE_PCB_INFO = "hide_pcb_info"
     OPT_DATASHEET_AS_LINK = "datasheet_as_link"  # (#112)
@@ -70,6 +71,7 @@ class BomPref:
         self.hidePcbInfo = False
         self.configField = "Config"  # Default field used for part fitting config
         self.pcbConfig = ["default"]
+        self.complexVariant = False  # To enable complex variant processing
         self.refSeparator = " "
 
         self.backup = "%O.tmp"  # If no .INI file is provided we create *.tmp back-ups
@@ -172,6 +174,7 @@ class BomPref:
             self.hideHeaders = self.checkOption(self.OPT_HIDE_HEADERS, default=False)
             self.hidePcbInfo = self.checkOption(self.OPT_HIDE_PCB_INFO, default=False)
             self.configField = self.checkStr(self.OPT_CONFIG_FIELD, default=self.configField).lower()
+            self.complexVariant = self.checkOption(self.OPT_COMPLEX_VARIANT, default=False)
             self.boards = self.checkInt(self.OPT_DEFAULT_BOARDS, default=1)
             self.refSeparator = self.checkStr(self.OPT_REF_SEPARATOR, default=self.refSeparator).strip("\'\"")
             self.pcbConfig = self.checkStr(self.OPT_DEFAULT_PCBCONFIG, default=self.pcbConfig[0])
@@ -269,6 +272,7 @@ class BomPref:
         cf.set(self.SECTION_GENERAL, '; Default PCB variant if none given on CLI with -r')
         cf.set(self.SECTION_GENERAL, self.OPT_DEFAULT_PCBCONFIG, ','.join(self.pcbConfig))
 
+        self.addOption(cf, self.OPT_COMPLEX_VARIANT, self.complexVariant, comment="If '{opt}' option is set to 1, the complex variant field processing is enabled".format(opt=self.OPT_COMPLEX_VARIANT))
         self.addOption(cf, self.OPT_HIDE_HEADERS, self.hideHeaders, comment="If '{opt}' option is set to 1, column headers aren't included in the output file".format(opt=self.OPT_HIDE_HEADERS))
         self.addOption(cf, self.OPT_HIDE_PCB_INFO, self.hidePcbInfo, comment="If '{opt}' option is set to 1, PCB info isn't included in the output file".format(opt=self.OPT_HIDE_PCB_INFO))
 
