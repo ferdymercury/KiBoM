@@ -234,7 +234,11 @@ def main():
     if args.variant is not None:
         variants = args.variant.split(';')
     else:
-        variants = [None]
+        # Check if variants were defined in configuration
+        if pref.pcbConfig != ['default']:
+            variants = pref.pcbConfig
+        else:
+            variants = [None]
 
     # Generate BOMs for each specified variant
     for variant in variants:
